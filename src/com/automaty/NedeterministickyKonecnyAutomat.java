@@ -1,28 +1,24 @@
 package com.automaty;
 
 import java.util.HashSet;
+import java.util.List;
 
 public class NedeterministickyKonecnyAutomat {
 
-    private HashSet<String> stavy;
-    private HashSet<String> symboly;
+    private List<String> stavy;
+    private List<String> symboly;
     private String zaciatocnyStav;
-    private HashSet<String> akceptujuceStavy;
+    private List<String> akceptujuceStavy;
 
 
 
-    public NedeterministickyKonecnyAutomat(HashSet<String> stavy, HashSet<String> symboly,
-                                           String zaciatocnyStav, HashSet<String> akceptujuceStavy){
+    public NedeterministickyKonecnyAutomat(List<String> stavy, List<String> symboly,
+                                           String zaciatocnyStav, List<String> akceptujuceStavy){
         this.stavy = stavy;
         this.symboly = symboly;
         this.zaciatocnyStav = zaciatocnyStav;
         this.akceptujuceStavy = akceptujuceStavy;
-
-        System.out.println("________NFA___________");
-        System.out.println("Stavy sú"+stavy);
-        System.out.println("Symboly sú:"+symboly);
-        System.out.println("Zaciatocny stav je:"+zaciatocnyStav);
-        System.out.println("Akceptujuce stavy su:"+akceptujuceStavy);
+        
 
 
 
