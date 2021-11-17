@@ -21,7 +21,7 @@ public class PrechodovaFunkcia {
         System.out.println("Prechodova tabulka:\n");
         System.out.println(Arrays.deepToString(prechodovaTabulka).replace("]]"," \n")
                                                                  .replace("["," ")
-                                                                 .replace("]"," ")
+                                                                 .replace("]"," \t\t")
                                                                  .replace("null","")
                                                                  .replace(",",""));
 
