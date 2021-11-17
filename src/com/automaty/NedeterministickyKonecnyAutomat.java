@@ -1,6 +1,5 @@
 package com.automaty;
 
-import java.util.HashSet;
 import java.util.List;
 
 public class NedeterministickyKonecnyAutomat {
@@ -18,9 +17,6 @@ public class NedeterministickyKonecnyAutomat {
         this.symboly = symboly;
         this.zaciatocnyStav = zaciatocnyStav;
         this.akceptujuceStavy = akceptujuceStavy;
-        
-
-
 
     }
 

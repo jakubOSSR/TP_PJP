@@ -1,13 +1,13 @@
 package com.automaty;
 
-import java.util.HashSet;
+import java.util.List;
 
 public class DeterministickyKonecnyAutomat {
 
-    private HashSet<String> stavy;
-    private HashSet<String> symboly;
+    private List<String> stavy;
+    private List<String> symboly;
     private String zaciatocnyStav;
-    private HashSet<String> akceptujuceStavy;
+    private List<String> akceptujuceStavy;
 
 
 
