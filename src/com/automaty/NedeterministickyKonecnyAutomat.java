@@ -5,23 +5,23 @@ import java.util.List;
 
 public class NedeterministickyKonecnyAutomat {
 
-    private List<String> stavy;
+    private List<String> stavyNKA;
     private List<String> symboly;
-    private String zaciatocnyStav;
-    private List<String> akceptujuceStavy;
+    private String zaciatocnyStavNKA;
+    private List<String> akceptujuceStavyNKA;
     private String [] riadkyTabulkyNKA;
     String eps = "epsilon";
     boolean withEps = false;
     boolean sameSymbol = false;
 
 
-    public NedeterministickyKonecnyAutomat(List<String> stavy, List<String> symboly,
-                                           String zaciatocnyStav, List<String> akceptujuceStavy,
+    public NedeterministickyKonecnyAutomat(List<String> stavyNKA, List<String> symboly,
+                                           String zaciatocnyStavNKA, List<String> akceptujuceStavyNKA,
                                            String [] riadkyTabulkyNKA) throws Exception{
-        this.stavy = stavy;
+        this.stavyNKA = stavyNKA;
         this.symboly = symboly;
-        this.zaciatocnyStav = zaciatocnyStav;
-        this.akceptujuceStavy = akceptujuceStavy;
+        this.zaciatocnyStavNKA = zaciatocnyStavNKA;
+        this.akceptujuceStavyNKA = akceptujuceStavyNKA;
         this.riadkyTabulkyNKA = riadkyTabulkyNKA;
 
             int index1 = 0;
@@ -47,7 +47,7 @@ public class NedeterministickyKonecnyAutomat {
                 System.out.println("NKA automat bol správne zadaný!");
             }
 
-             System.out.println("Stavy: "+stavy);
+             System.out.println("Stavy: "+stavyNKA);
              System.out.println("Symboly: "+symboly);
              System.out.println("Prechodové pravidla NKA automatu:");
              System.out.println(Arrays.deepToString(riadkyTabulkyNKA).replace("["," ")
