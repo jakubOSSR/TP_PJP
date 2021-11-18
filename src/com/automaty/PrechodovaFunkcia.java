@@ -9,22 +9,25 @@ public class PrechodovaFunkcia {
 
     private List<String> stavy;
     private List<String> symboly;
-    private String [][][] prechodovaTabulka;
+    private String [] riadkyTabulkyNKA;
+    private String [] riadkyTabulkyDKA;
 
 
-    public PrechodovaFunkcia(List<String> stavy, List<String> symboly, String [][][] prechodovaTabulka){
+    public PrechodovaFunkcia(List<String> stavy, List<String> symboly, String [] riadkyTabulkyNKA){
         this.stavy=stavy;
         this.symboly=symboly;
-        this.prechodovaTabulka = prechodovaTabulka;
-        System.out.println("Stavy: "+stavy);
-        System.out.println("Symboly: "+symboly);
-        System.out.println("Prechodova tabulka:\n");
-        System.out.println(Arrays.deepToString(prechodovaTabulka).replace("]]"," \n")
-                                                                 .replace("["," ")
-                                                                 .replace("]"," \t\t")
-                                                                 .replace("null","")
-                                                                 .replace(",",""));
+        this.riadkyTabulkyNKA=riadkyTabulkyNKA;
 
+
+    }
+    public String[] vratPrechodovuTabulkuDKA(String [] riadkyNKA){
+        return null;
+    }
+    public List<String> vratStavyDKA(){
+        return null;
+    }
+    public List<String> vratAkceptujuceStavyDKA(){
+        return null;
     }
 
 

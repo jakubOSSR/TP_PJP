@@ -3,13 +3,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class classToRemove {
-    public static void main (String [] args){
+    public static void main (String [] args) throws Exception {
         List<String> stavy = new ArrayList<>();
         List<String> akceptujuceStavy = new ArrayList<>();
         List<String> symboly = new ArrayList<>();
         String zaciatocnyStav = null;
-        String [][][] prechodovaTabulka;
-
+        String [] riadkyTabulkyNKA;
 
         stavy.add("q0");
         stavy.add("q1");
@@ -18,18 +17,15 @@ public class classToRemove {
         symboly.add("1");
         akceptujuceStavy.add("q2");
         zaciatocnyStav = "q0";
+        riadkyTabulkyNKA = new String[stavy.size()];
+        //do tabulky sa zapise vo formáte:  aktualny_stav na hodnota_prechodu/symbol do nasledujuci_stav/nasledujuce_stavy
+        riadkyTabulkyNKA[0]="q0 na 0 do q0 q1"; //q1
+        riadkyTabulkyNKA[1]="q1 na 1 do q1";
+        riadkyTabulkyNKA[2]="q2 na 0 do q1";//q2
+        new NedeterministickyKonecnyAutomat(stavy,symboly,zaciatocnyStav,akceptujuceStavy,riadkyTabulkyNKA);
 
-        prechodovaTabulka = new String[stavy.size()][symboly.size()][symboly.size()];
-        prechodovaTabulka[0][0][0] ="q0";
-        prechodovaTabulka[0][0][1] ="q1";
-        prechodovaTabulka[0][1][0] ="q1";
-        prechodovaTabulka[1][0][0] ="q2";
-        prechodovaTabulka[1][1][0] ="q0";
-        prechodovaTabulka[2][0][0] ="q2";
-        prechodovaTabulka[2][1][0] ="q1";
-        prechodovaTabulka[2][1][1] ="q2";
-        new PrechodovaFunkcia(stavy,symboly,prechodovaTabulka);
-        new NedeterministickyKonecnyAutomat(stavy,symboly,zaciatocnyStav,akceptujuceStavy);
+        new PrechodovaFunkcia(stavy,symboly,riadkyTabulkyNKA);
+
 
 
 

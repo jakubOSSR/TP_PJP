@@ -8,7 +8,7 @@ public class DeterministickyKonecnyAutomat {
     private List<String> symboly;
     private String zaciatocnyStav;
     private List<String> akceptujuceStavy;
-
+    private String [] riadkyTabulky;
 
 
 }
