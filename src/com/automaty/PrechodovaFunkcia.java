@@ -21,6 +21,7 @@ public class PrechodovaFunkcia {
 
     }
     public String[] vratPrechodovuTabulkuDKA(String [] riadkyNKA){
+
         return null;
     }
     public List<String> vratStavyDKA(){

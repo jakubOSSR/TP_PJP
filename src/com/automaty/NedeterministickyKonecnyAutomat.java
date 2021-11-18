@@ -41,7 +41,7 @@ public class NedeterministickyKonecnyAutomat {
             }
 
             if((withEps == false && sameSymbol==false )){
-                throw new Exception("Zadaný autom nie je NKA automat!!");
+                throw new Exception("Zadaný automat nie je NKA automat!!");
             }
             else{
                 System.out.println("NKA automat bol správne zadaný!");
@@ -49,7 +49,7 @@ public class NedeterministickyKonecnyAutomat {
 
              System.out.println("Stavy: "+stavyNKA);
              System.out.println("Symboly: "+symboly);
-             System.out.println("Prechodové pravidla NKA automatu:");
+             System.out.println("Prechodové tabulka NKA automatu:");
              System.out.println(Arrays.deepToString(riadkyTabulkyNKA).replace("["," ")
                                                                      .replace("]","")
                                                                      .replace(",","\n"));
