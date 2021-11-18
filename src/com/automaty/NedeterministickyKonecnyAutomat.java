@@ -53,8 +53,6 @@ public class NedeterministickyKonecnyAutomat {
              System.out.println(Arrays.deepToString(riadkyTabulkyNKA).replace("["," ")
                                                                      .replace("]","")
                                                                      .replace(",","\n"));
-
-
     }
 
 

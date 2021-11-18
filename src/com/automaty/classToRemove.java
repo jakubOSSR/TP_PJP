@@ -18,13 +18,12 @@ public class classToRemove {
         akceptujuceStavyNKA.add("q2");
         zaciatocnyStavNKA = "q0";
         riadkyTabulkyNKA = new String[stavyNKA.size()];
-        //do tabulky sa zapise vo formáte:  aktualny_stav na hodnota_prechodu/symbol do nasledujuci_stav/nasledujuce_stavy
-        riadkyTabulkyNKA[0]="q0 na 0 do q0 q1"; //q1
+        //do tabulky sa zapisuje vo formáte:  aktualny_stav na hodnota_prechodu/symbol do nasledujuci_stav/nasledujuce_stavy
+        riadkyTabulkyNKA[0]="q0 na 0 do q0 q1";
         riadkyTabulkyNKA[1]="q1 na 1 do q1";
-        riadkyTabulkyNKA[2]="q2 na 0 do q1";//q2
+        riadkyTabulkyNKA[2]="q2 na 0 do q1";
         new NedeterministickyKonecnyAutomat(stavyNKA,symboly,zaciatocnyStavNKA,akceptujuceStavyNKA,riadkyTabulkyNKA);
 
-        new PrechodovaFunkcia(stavyNKA,symboly,riadkyTabulkyNKA);
 
 
 
