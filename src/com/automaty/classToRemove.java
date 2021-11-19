@@ -1,29 +1,35 @@
 package com.automaty;
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 
 public class classToRemove {
     public static void main (String [] args) throws Exception {
-        List<String> stavyNKA = new ArrayList<>();
-        List<String> akceptujuceStavyNKA = new ArrayList<>();
-        List<String> symboly = new ArrayList<>();
-        List<String> zaciatocnyStavNKA = new ArrayList<>();
-        String [] riadkyTabulkyNKA;
+        HashSet<String> stavyNKA = new HashSet<>();
+        HashSet<String> akceptujuceStavyNKA = new HashSet<>();
+        HashSet<String> symbolyNKA = new HashSet<>();
+        String zaciatocnyStavNKA = null;
+        Transformacia prechodovaNKA;
 
+
+        //naplnenie Stavov
         stavyNKA.add("q0");
         stavyNKA.add("q1");
         stavyNKA.add("q2");
-        symboly.add("0");
-        symboly.add("1");
+        //naplnenie Symbolov
+        symbolyNKA.add("0");
+        symbolyNKA.add("1");
+        //naplnenie Akceptujucich
         akceptujuceStavyNKA.add("q2");
-        zaciatocnyStavNKA.add("q0");
-        riadkyTabulkyNKA = new String[stavyNKA.size()];
-        //do tabulky sa zapisuje vo formáte:  "stav" aktualny_stav "na" hodnota_prechodu/symbol "do" nasledujuci_stav "a" nasledujuci_stav
-        riadkyTabulkyNKA[0]="zo stavu q0 na 0 do q0 a q1";
-        riadkyTabulkyNKA[1]="zo stavu q1 na 1 do q1";
-        riadkyTabulkyNKA[2]="zo stavu q2 na 0 do q1";
-        new NedeterministickyKonecnyAutomat(stavyNKA,symboly,zaciatocnyStavNKA,akceptujuceStavyNKA,riadkyTabulkyNKA);
+        //najplnenie Zaciatocnych
+        zaciatocnyStavNKA = "q0";
+        //naplnenie prechodovej tabulky
+        prechodovaNKA = new Transformacia(symbolyNKA,stavyNKA);
+        prechodovaNKA.pridajRiadok("q0","0","q0","q1");
+        prechodovaNKA.pridajRiadok("q0","1","q1");
+
+
+
+
 
 
 

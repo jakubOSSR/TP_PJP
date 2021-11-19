@@ -1,22 +1,26 @@
 package com.automaty;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 public class DeterministickyKonecnyAutomat {
 
-    private List<String> stavyDKA;
-    private List<String> symboly;
+    private HashSet<String> stavyDKA;
+    private HashSet<String> symboly;
     private String zaciatocnyStavDKA;
-    private List<String> akceptujuceStavyDKA;
-    private String [] riadkyTabulkyDKA;
+    private HashSet<String> akceptujuceStavyDKA;
+    Map<String, HashMap<String,HashSet<String>>> prechodovaTabulkaDKA;
 
-    public DeterministickyKonecnyAutomat(List<String> stavyDKA, List<String> symboly, String zaciatocnyStavDKA,
-                                         List<String> akceptujuceStavyDKA, String [] riadkyTabulkyDKA){
+    public DeterministickyKonecnyAutomat(HashSet<String> stavyDKA, HashSet<String> symboly, String zaciatocnyStavDKA,
+                                         HashSet<String> akceptujuceStavyDKA, HashSet<String> riadkyTabulkyDKA,
+                                         Map<String, HashMap<String,HashSet<String>>> prechodovaTabulkaDKA){
         this.stavyDKA=stavyDKA;
         this.symboly=symboly;
         this.zaciatocnyStavDKA=zaciatocnyStavDKA;
         this.akceptujuceStavyDKA=akceptujuceStavyDKA;
-        this.riadkyTabulkyDKA = riadkyTabulkyDKA;
+        this.prechodovaTabulkaDKA = prechodovaTabulkaDKA;
     }
 
 }
