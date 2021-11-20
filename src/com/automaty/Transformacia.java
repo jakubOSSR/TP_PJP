@@ -1,7 +1,6 @@
 package com.automaty;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 
 public class Transformacia {
@@ -51,9 +50,8 @@ public class Transformacia {
         kontrolaZaciatocnehoStavu.add(stav);
         pom.add(stav123.length);
         prechodovaTabulka.put(stav,pravidla);
-        System.out.print(prechodovaTabulka.toString());
     }
-    public int overNKA(){
+    public int overAutomat(){
         return Collections.max(pom);
     }
     public String[] overStavyVtabulke(){

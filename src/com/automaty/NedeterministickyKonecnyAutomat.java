@@ -9,7 +9,6 @@ public class NedeterministickyKonecnyAutomat {
     private String zaciatocnyStavNKA;
     private String akceptujuciStavNKA;
     private Transformacia prechodovaTabulkaNKA;
-    private String eps = "epsilon";
    //pomocne
     private boolean jeNKA;
     private boolean nachadzajuSaStavy;
@@ -31,7 +30,7 @@ public class NedeterministickyKonecnyAutomat {
         this.prechodovaTabulkaNKA = prechodovaTabulkaNKA;
 
         //overenie NKA
-        if((symboly.contains(eps)) || (prechodovaTabulkaNKA.overNKA() > 1)){
+        if((symboly.contains("epsilon")) || (prechodovaTabulkaNKA.overAutomat() > 1)){
             jeNKA = true;
         }
 
@@ -62,28 +61,26 @@ public class NedeterministickyKonecnyAutomat {
         if(prechodovaTabulkaNKA.overZaciatocnyStav().contains(zaciatocnyStavNKA)){
             jeZaciatocnStav = true;
         }
-
+        //overenie akceptujuceho stavu
         if(prechodovaTabulkaNKA.overAkceptujuciStav().contains(akceptujuciStavNKA)){
-            System.out.println("Dostnem sa?");
             jeAkceptujuciStav = true;
         }
 
 
-
-        if(nachadzajuSaStavy==false){
-            throw new Exception("Stavy v tabulke sa nenachádzaju v množine stavov!!");
-        }
-        if(nachadzajuSaSymboly==false){
-            throw new Exception("Symboly v tabulke sa nenachádzaju v množine symbolov!!");
-        }
         if(jeNKA==false){
             throw new Exception("Zadaný automat nie je NKA automat!!!!");
         }
+        if(nachadzajuSaStavy==false){
+            throw new Exception("Stavy v tabulke NKA automatu sa nenachádzaju v množine stavov!!");
+        }
+        if(nachadzajuSaSymboly==false){
+            throw new Exception("Symboly v tabulke NKA automatu sa nenachádzaju v množine symbolov!!");
+        }
         if(jeZaciatocnStav==false){
-            throw new Exception("V tabulke, na pravej strane, sa nenachadza ani jeden krat ziaciatocny stav!!!");
+            throw new Exception("V tabulke NKA automatu, na lavej strane, sa nenachadza ani jeden krat ziaciatocny stav!!!");
         }
         if(jeAkceptujuciStav==false){
-            throw new Exception("V tabulke, sa nenachadza akceptujúci stav-automat sa zasekne!!");
+            throw new Exception("V tabulke, NKA automatu, sa nenachadza akceptujúci stav-automat nikdy nič neakceptuje!");
         }
 
 

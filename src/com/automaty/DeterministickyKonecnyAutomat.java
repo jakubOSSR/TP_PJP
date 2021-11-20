@@ -1,26 +1,82 @@
 package com.automaty;
 
-import java.util.HashMap;
+
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+
 
 public class DeterministickyKonecnyAutomat {
 
     private HashSet<String> stavyDKA;
     private HashSet<String> symboly;
     private String zaciatocnyStavDKA;
-    private HashSet<String> akceptujuceStavyDKA;
-    Map<String, HashMap<String,HashSet<String>>> prechodovaTabulkaDKA;
+    private String akceptujuciStavDKA;
+    private Transformacia prechodovaTabulkaDKA;
 
-    public DeterministickyKonecnyAutomat(HashSet<String> stavyDKA, HashSet<String> symboly, String zaciatocnyStavDKA,
-                                         HashSet<String> akceptujuceStavyDKA, HashSet<String> riadkyTabulkyDKA,
-                                         Map<String, HashMap<String,HashSet<String>>> prechodovaTabulkaDKA){
+    private boolean jeDKA = true;
+    private boolean nachadzajuSaStavy;
+    private boolean nachadzajuSaSymboly;
+    private boolean jeAkceptujuciStav;
+    private boolean jeZaciatocnStav;
+
+    public DeterministickyKonecnyAutomat(HashSet<String> stavyDKA, HashSet<String> symboly,
+                                         String zaciatocnyStavDKA, String akceptujuciStavDKA,
+                                         Transformacia prechodovaTabulkaDKA) throws Exception{
         this.stavyDKA=stavyDKA;
         this.symboly=symboly;
         this.zaciatocnyStavDKA=zaciatocnyStavDKA;
-        this.akceptujuceStavyDKA=akceptujuceStavyDKA;
+        this.akceptujuciStavDKA=akceptujuciStavDKA;
         this.prechodovaTabulkaDKA = prechodovaTabulkaDKA;
+        //overenie DKA
+        if(symboly.contains("epsilon") || prechodovaTabulkaDKA.overAutomat() > 1){
+            jeDKA = false;
+
+        }
+        //overenie stavov
+        for(int i=0;i < prechodovaTabulkaDKA.overStavyVtabulke().length;i++)
+        {
+            if(stavyDKA.contains(prechodovaTabulkaDKA.overStavyVtabulke()[i])){
+                nachadzajuSaStavy = true;
+            }
+            else{
+                nachadzajuSaStavy=false;
+                break;
+            }
+        }
+        //overenie symbolov
+        for(int i=0;i < prechodovaTabulkaDKA.overSymbolyVtabulke().length;i++)
+        {
+            if(symboly.contains(prechodovaTabulkaDKA.overSymbolyVtabulke()[i])){
+                nachadzajuSaSymboly = true;
+            }
+            else{
+                nachadzajuSaSymboly=false;
+                break;
+            }
+        }
+        //overenie zaciatocneho stavu
+        if(prechodovaTabulkaDKA.overZaciatocnyStav().contains(zaciatocnyStavDKA)){
+            jeZaciatocnStav = true;
+        }
+        //overenie akceptujuceho stavu
+        if(prechodovaTabulkaDKA.overAkceptujuciStav().contains(akceptujuciStavDKA)){
+            jeAkceptujuciStav = true;
+        }
+
+        if(jeDKA==false){
+            throw new Exception("Zadaný automat nie je DKA automat!!");
+        }
+        if(nachadzajuSaStavy==false){
+            throw new Exception("Stavy v tabulke DKA automatu sa nenachádzaju v množine stavov!!");
+        }
+        if(nachadzajuSaSymboly==false){
+            throw new Exception("Symboly v tabulke DKA automatu sa nenachádzaju v množine symbolov!!");
+        }
+        if(jeZaciatocnStav==false){
+            throw new Exception("V tabulke DKA automatu, na lavej strane, sa nenachadza ani jeden krat ziaciatocny stav!!!");
+        }
+        if(jeAkceptujuciStav==false){
+            throw new Exception("V tabulke, DKA automatu, sa nenachadza akceptujúci stav-automat nikdy nič neakceptuje!");
+        }
     }
 
 }
