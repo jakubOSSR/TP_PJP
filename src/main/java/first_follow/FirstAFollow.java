@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
-public class First {
+public class FirstAFollow {
 
     public static ArrayList<String> first(ArrayList<String> retazecFirst, BezkontextovaGramatika g) throws Exception {
         ArrayList<String> vysledok = new ArrayList<>();

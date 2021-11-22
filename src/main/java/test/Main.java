@@ -4,7 +4,7 @@ package test;
 import com.gramatiky.BezkontextovaGramatika;
 import com.gramatiky.Gramatika;
 import com.gramatiky.Pravidlo;
-import first_follow.First;
+import first_follow.FirstAFollow;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,13 +25,13 @@ public class Main {
         BezkontextovaGramatika grammar = new BezkontextovaGramatika(terminaly,neterminaly,zaciatocnySymbol,pravidla) {
         };
         ArrayList<String> retazecFirst = new ArrayList<>();
-        retazecFirst.add("a");
+        retazecFirst.add("l");
         retazecFirst.add("B");
         System.out.println(retazecFirst);
         System.out.println(pravidlo1.getLavaStrana());
     System.out.println(pravidlo1.getPravaStrana());
 
-    First.first(retazecFirst, grammar);
+    FirstAFollow.first(retazecFirst, grammar);
     }}
 
 
