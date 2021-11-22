@@ -3,9 +3,7 @@ package com.automaty;
 import java.util.*;
 
 
-public class Transformacia {
-    private HashSet<String> symboly;
-    private HashSet<String> stavy;
+public class Tabulka {
     private HashMap<String, HashMap<String,HashSet<String>>> prechodovaTabulka = new HashMap<String, HashMap<String,HashSet<String>>>();
     private HashMap<String,HashSet<String>> pravidla;
     private HashSet<String> nasledujuciStav;
@@ -17,16 +15,12 @@ public class Transformacia {
     private HashSet<String> kontrolaZaciatocnehoStavu = new HashSet<String>();
     private HashSet<String> kontrolaAkceptujucehoStavu = new HashSet<String>();
 
-    public Transformacia(HashSet<String> symboly, HashSet<String> stavy,
-                         HashMap<String, HashMap<String,HashSet<String>>> prechodovaTabulka){
-        this.symboly = symboly;
-        this.stavy = stavy;
-        this.prechodovaTabulka = prechodovaTabulka;
+    public Tabulka(){
+
     }
-    public Transformacia(HashSet<String> symboly, HashSet<String> stavy){
-        this.symboly = symboly;
-        this.stavy = stavy;
-    }
+
+
+    // metody na vytvorenie prechodovej tabulky NKA/DKA automatu
     public void pridajNasledujuciStav(String symbol,String... stav123){
         nasledujuciStav = new HashSet<String>();
         pomocna = new String[stav123.length];
@@ -39,10 +33,12 @@ public class Transformacia {
         prechod(symbol,nasledujuciStav);
 
     }
+
     public void prechod(String symbol, HashSet<String> naslStav){
         pravidla = new HashMap<String,HashSet<String>>();
         pravidla.put(symbol,naslStav);
     }
+
     public void pridajRiadok(String stav, String symbol, String... stav123){
         pridajNasledujuciStav(symbol,stav123);
         overStavy.add(stav);
@@ -51,12 +47,20 @@ public class Transformacia {
         pom.add(stav123.length);
         prechodovaTabulka.put(stav,pravidla);
     }
-    public int overAutomat(){
-        return Collections.max(pom);
-    }
+
     public String[] overStavyVtabulke(){
         return overStavy.toArray(new String[overStavy.size()]);
 
+    }
+
+    public void vypisTabulku(){
+        for (Map.Entry<String,HashMap<String,HashSet<String>>> s : prechodovaTabulka.entrySet()) {
+            System.out.println(s.getKey()+" : "+s.getValue());
+        }
+    }
+
+    public int overAutomat(){
+        return Collections.max(pom);
     }
     public String[] overSymbolyVtabulke(){
         return overSym.toArray(new String[overSym.size()]);
@@ -67,6 +71,8 @@ public class Transformacia {
     public HashSet<String> overAkceptujuciStav(){
         return kontrolaAkceptujucehoStavu;
     }
+
+
 
 
 

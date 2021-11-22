@@ -10,7 +10,7 @@ public class DeterministickyKonecnyAutomat {
     private HashSet<String> symboly;
     private String zaciatocnyStavDKA;
     private String akceptujuciStavDKA;
-    private Transformacia prechodovaTabulkaDKA;
+    private Tabulka prechodovaTabulkaDKA;
 
     private boolean jeDKA = true;
     private boolean nachadzajuSaStavy;
@@ -20,7 +20,7 @@ public class DeterministickyKonecnyAutomat {
 
     public DeterministickyKonecnyAutomat(HashSet<String> stavyDKA, HashSet<String> symboly,
                                          String zaciatocnyStavDKA, String akceptujuciStavDKA,
-                                         Transformacia prechodovaTabulkaDKA) throws Exception{
+                                         Tabulka prechodovaTabulkaDKA) throws Exception{
         this.stavyDKA=stavyDKA;
         this.symboly=symboly;
         this.zaciatocnyStavDKA=zaciatocnyStavDKA;
@@ -78,5 +78,19 @@ public class DeterministickyKonecnyAutomat {
             throw new Exception("V tabulke, DKA automatu, sa nenachadza akceptujúci stav-automat nikdy nič neakceptuje!");
         }
     }
+    public HashSet<String> vratStavyDKA(){
+        return stavyDKA;
+    }
+    public HashSet<String> vratSymbolyAut(){
+        return symboly;
+    }
+    public String vratZacStavDKA(){
+        return zaciatocnyStavDKA;
+    }
+    public String vratAkcStavDKA(){
+        return akceptujuciStavDKA;
+    }
+    public Tabulka vratTabulkuDKA(){return prechodovaTabulkaDKA;}
+
 
 }

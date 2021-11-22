@@ -9,14 +9,14 @@ public class classToRemove {
         String akceptujuciStavNKA= null;
         HashSet<String> symbolyNKA = new HashSet<>();
         String zaciatocnyStavNKA = null;
-        Transformacia prechodovaNKA;
+        Tabulka prechodovaNKA;
 
         //Deklaracia parametrov DKA
         HashSet<String> stavyDKA = new HashSet<>();
         String akceptujuciStavDKA= null;
         HashSet<String> symbolyDKA = new HashSet<>();
         String zaciatocnyStavDKA = null;
-        Transformacia prechodovaDKA;
+        Tabulka prechodovaDKA;
 
         //naplnenie Stavov NKA
         stavyNKA.add("q0");
@@ -30,7 +30,7 @@ public class classToRemove {
         //najplnenie Zaciatocnych NKA
         zaciatocnyStavNKA = "q0";
         //naplnenie prechodovej tabulky NKA
-        prechodovaNKA = new Transformacia(symbolyNKA,stavyNKA);
+        prechodovaNKA = new Tabulka();
         prechodovaNKA.pridajRiadok("q1","0","q0","q2");
         prechodovaNKA.pridajRiadok("q0","1","q1");
         new NedeterministickyKonecnyAutomat(stavyNKA,symbolyNKA,zaciatocnyStavNKA,akceptujuciStavNKA,prechodovaNKA);
@@ -49,7 +49,7 @@ public class classToRemove {
         //Naplnenie zaciatocnych stavov
         zaciatocnyStavDKA = "q0";
         //naplnenie prechodovej tabulky DKA
-        prechodovaDKA = new Transformacia(symbolyDKA,stavyDKA);
+        prechodovaDKA = new Tabulka();
         prechodovaDKA.pridajRiadok("q0","0","q2");
         new DeterministickyKonecnyAutomat(stavyDKA,symbolyDKA,zaciatocnyStavDKA,akceptujuciStavDKA,prechodovaDKA);
 

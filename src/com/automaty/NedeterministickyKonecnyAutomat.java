@@ -3,12 +3,11 @@ package com.automaty;
 import java.util.*;
 
 public class NedeterministickyKonecnyAutomat {
-
     private HashSet<String> stavyNKA;
     private HashSet<String> symboly;
     private String zaciatocnyStavNKA;
     private String akceptujuciStavNKA;
-    private Transformacia prechodovaTabulkaNKA;
+    private Tabulka prechodovaTabulkaNKA;
    //pomocne
     private boolean jeNKA;
     private boolean nachadzajuSaStavy;
@@ -22,13 +21,13 @@ public class NedeterministickyKonecnyAutomat {
 
     public NedeterministickyKonecnyAutomat(HashSet<String> stavyNKA, HashSet<String> symboly,
                                            String zaciatocnyStavNKA, String akceptujuciStavNKA,
-                                           Transformacia prechodovaTabulkaNKA) throws Exception {
+                                           Tabulka prechodovaTabulkaNKA) throws Exception {
         this.stavyNKA = stavyNKA;
         this.symboly = symboly;
         this.zaciatocnyStavNKA = zaciatocnyStavNKA;
         this.akceptujuciStavNKA = akceptujuciStavNKA;
         this.prechodovaTabulkaNKA = prechodovaTabulkaNKA;
-
+        prechodovaTabulkaNKA.vypisTabulku();
         //overenie NKA
         if((symboly.contains("epsilon")) || (prechodovaTabulkaNKA.overAutomat() > 1)){
             jeNKA = true;
@@ -98,7 +97,5 @@ public class NedeterministickyKonecnyAutomat {
     public String vratAkcStavNKA(){
         return akceptujuciStavNKA;
     }
-    public Transformacia vratTabulkuNKA(){
-        return prechodovaTabulkaNKA;
-    }
+    public Tabulka vratTabulkuNKA(){return prechodovaTabulkaNKA;}
 }
