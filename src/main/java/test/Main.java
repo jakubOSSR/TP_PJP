@@ -19,17 +19,18 @@ public class Main {
         String zaciatocnySymbol = "S";
 
 
-        Pravidlo pravidlo1 = new Pravidlo(new ArrayList<>(Arrays.asList("S")), new ArrayList<>(Arrays.asList("a", "B", "a")));
-        Pravidlo pravidlo2 = new Pravidlo(new ArrayList<>(Arrays.asList("S")), new ArrayList<>(Arrays.asList("a", "S")));
-        LinkedHashSet<Pravidlo> pravidla = new LinkedHashSet<>(Arrays.asList(pravidlo1, pravidlo2));
+        Pravidlo pravidlo1 = new Pravidlo(new ArrayList<>(Arrays.asList("S")), new ArrayList<>(Arrays.asList("B", "B", "a")));
+        Pravidlo pravidlo2 = new Pravidlo(new ArrayList<>(Arrays.asList("B")), new ArrayList<>(Arrays.asList("A",  "A")));
+        Pravidlo pravidlo3 = new Pravidlo(new ArrayList<>(Arrays.asList("A")), new ArrayList<>(Arrays.asList("c",  "b")));
+        LinkedHashSet<Pravidlo> pravidla = new LinkedHashSet<>(Arrays.asList(pravidlo1, pravidlo2, pravidlo3));
         BezkontextovaGramatika grammar = new BezkontextovaGramatika(terminaly,neterminaly,zaciatocnySymbol,pravidla) {
         };
         ArrayList<String> retazecFirst = new ArrayList<>();
-        retazecFirst.add("l");
-        retazecFirst.add("B");
-        System.out.println(retazecFirst);
-        System.out.println(pravidlo1.getLavaStrana());
-    System.out.println(pravidlo1.getPravaStrana());
+        retazecFirst.add("S");
+        //System.out.println(retazecFirst);
+        //System.out.println(pravidlo2.getLavaStrana());
+        //System.out.println(pravidlo2.getPravaStrana());
+        //System.out.println(pravidlo3.getPravaStrana());
 
     FirstAFollow.first(retazecFirst, grammar);
     }}

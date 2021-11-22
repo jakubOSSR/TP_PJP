@@ -2,35 +2,44 @@ package first_follow;
 import com.gramatiky.*;
 
 import java.security.PrivilegedAction;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
+import java.util.*;
 
 public class FirstAFollow {
 
     public static ArrayList<String> first(ArrayList<String> retazecFirst, BezkontextovaGramatika g) throws Exception {
         ArrayList<String> vysledok = new ArrayList<>();
         String eps = "epsilon";
-        if(g.getTerminaly().contains(retazecFirst.get(0))){
-            vysledok.add(retazecFirst.get(0));
-        }
-        else
-        {
-            if(g.getNeterminaly().contains(retazecFirst.get(0))) {
+        Iterator itr = g.getPravidla().iterator();
+        if (g.getTerminaly().contains(retazecFirst.get(0))) {
+                vysledok.add(retazecFirst.get(0));
+        } else {
+                if (g.getNeterminaly().contains(retazecFirst.get(0))) {
+                   for (int i = 0; i < retazecFirst.size(); i++) {
+                        for (Pravidlo p : g.getPravidla()) {
+                            if (p.getLavaStrana().contains(retazecFirst.get(0))) { //getLavaStrana alebo getPravaStrana???
+                                retazecFirst.clear();
+                                    retazecFirst.add(p.getPravaStrana().get(0));
+                                    if (g.getTerminaly().contains(retazecFirst.get(0))) {
+                                    vysledok.add(p.getPravaStrana().get(0));
+                                    }
+                            }
+                            //itr.next();
+                        }
+                   }
+                } else {
+                    if (retazecFirst.get(0).equals(eps)) {
+                        vysledok.add(retazecFirst.get(0));
+                    } else {
+                        throw new Exception("Prvy symbol sa nenachadza medzi terminalmi ani neterminalmi");
+                    }
                 }
-            else {
-                if(retazecFirst.get(0).equals(eps)){
-                    vysledok.add(retazecFirst.get(0));
-                }
-            else
-                {
-                throw new Exception("Prvy symbol sa nenachadza medzi terminalmi ani neterminalmi");
-            }}}
+            }
+
+
         System.out.println(vysledok);
+       // System.out.println(retazecFirst);
         return vysledok;
     }
-
 
     }
     /*private HashSet<String> terminaly;
