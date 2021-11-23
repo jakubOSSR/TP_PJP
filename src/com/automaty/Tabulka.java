@@ -3,7 +3,7 @@ package com.automaty;
 import java.util.*;
 
 
-public class Tabulka {
+public class Tabulka<V,K> {
     private HashMap<String, HashMap<String,HashSet<String>>> prechodovaTabulka = new HashMap<String, HashMap<String,HashSet<String>>>();
     private HashMap<String,HashSet<String>> pravidla;
     private HashSet<String> nasledujuciStav;
@@ -21,6 +21,7 @@ public class Tabulka {
 
 
     // metody na vytvorenie prechodovej tabulky NKA/DKA automatu
+ /*
     public void pridajNasledujuciStav(String symbol,String... stav123){
         nasledujuciStav = new HashSet<String>();
         pomocna = new String[stav123.length];
@@ -38,14 +39,30 @@ public class Tabulka {
         pravidla = new HashMap<String,HashSet<String>>();
         pravidla.put(symbol,naslStav);
     }
-
+  */
     public void pridajRiadok(String stav, String symbol, String... stav123){
-        pridajNasledujuciStav(symbol,stav123);
+        nasledujuciStav = new HashSet<String>();
+        pomocna = new String[stav123.length];
+        pomocna = stav123;
+        for(int i=0;i< pomocna.length;i++){
+            nasledujuciStav.add(pomocna[i]);
+            overStavy.add(pomocna[i]);
+            kontrolaAkceptujucehoStavu.add(pomocna[i]);
+        }
+        pravidla = new HashMap<String,HashSet<String>>();
+        pravidla.put(symbol,nasledujuciStav);
+
+        pom.add(stav123.length);
         overStavy.add(stav);
         overSym.add(symbol);
         kontrolaZaciatocnehoStavu.add(stav);
-        pom.add(stav123.length);
-        prechodovaTabulka.put(stav,pravidla);
+
+        if(prechodovaTabulka.containsKey(stav)) {
+            prechodovaTabulka.get(stav).put(symbol,nasledujuciStav);
+        }
+        else{
+            prechodovaTabulka.put(stav, pravidla);
+        }
     }
 
     public String[] overStavyVtabulke(){
@@ -62,13 +79,13 @@ public class Tabulka {
     public int overAutomat(){
         return Collections.max(pom);
     }
-    public String[] overSymbolyVtabulke(){
+    public String[] vratSymbolyVTabulke(){
         return overSym.toArray(new String[overSym.size()]);
     }
-    public String[] overZaciatocnyStav(){
+    public String[] vratZaciatocnyStav(){
         return kontrolaZaciatocnehoStavu.toArray(new String[kontrolaZaciatocnehoStavu.size()]);
     }
-    public String[] overAkceptujuciStav(){
+    public String[] vratAkceptujuceStavy(){
         return kontrolaAkceptujucehoStavu.toArray(new String[kontrolaAkceptujucehoStavu.size()]);
     }
 

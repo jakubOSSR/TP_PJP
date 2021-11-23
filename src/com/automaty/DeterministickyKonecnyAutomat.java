@@ -26,13 +26,15 @@ public class DeterministickyKonecnyAutomat {
         this.zaciatocnyStavDKA=zaciatocnyStavDKA;
         this.akceptujuciStavDKA=akceptujuciStavDKA;
         this.prechodovaTabulkaDKA = prechodovaTabulkaDKA;
+        System.out.print("Prechodova tabulka DKA\n");
+        prechodovaTabulkaDKA.vypisTabulku();
         //overenie DKA
         if((prechodovaTabulkaDKA.overAutomat() > 1)){
             jeDKA = false;
         }
         else{
-            for(int i=0;i<prechodovaTabulkaDKA.overSymbolyVtabulke().length;i++){
-                if(prechodovaTabulkaDKA.overSymbolyVtabulke()[i].equals("epsilon")){
+            for(int i=0;i<prechodovaTabulkaDKA.vratSymbolyVTabulke().length;i++){
+                if(prechodovaTabulkaDKA.vratSymbolyVTabulke()[i].equals("epsilon")){
                     jeDKA = false;
                     break;
                 }
@@ -50,9 +52,9 @@ public class DeterministickyKonecnyAutomat {
             }
         }
         //overenie symbolov
-        for(int i=0;i < prechodovaTabulkaDKA.overSymbolyVtabulke().length;i++)
+        for(int i=0;i < prechodovaTabulkaDKA.vratSymbolyVTabulke().length;i++)
         {
-            if(symboly.contains(prechodovaTabulkaDKA.overSymbolyVtabulke()[i])){
+            if(symboly.contains(prechodovaTabulkaDKA.vratSymbolyVTabulke()[i])){
                 nachadzajuSaSymboly = true;
             }
             else{
@@ -61,9 +63,9 @@ public class DeterministickyKonecnyAutomat {
             }
         }
         //overenie zaciatocneho stavu
-        for(int i=0;i < prechodovaTabulkaDKA.overZaciatocnyStav().length;i++)
+        for(int i=0;i < prechodovaTabulkaDKA.vratZaciatocnyStav().length;i++)
         {
-            if(zaciatocnyStavDKA.contains(prechodovaTabulkaDKA.overZaciatocnyStav()[i])){
+            if(zaciatocnyStavDKA.contains(prechodovaTabulkaDKA.vratZaciatocnyStav()[i])){
                jeZaciatocnStav = true;
                break;
             }
@@ -72,9 +74,9 @@ public class DeterministickyKonecnyAutomat {
             }
         }
         //overenie akceptujuceho stavu
-        for(int i=0;i < prechodovaTabulkaDKA.overAkceptujuciStav().length;i++)
+        for(int i=0;i < prechodovaTabulkaDKA.vratAkceptujuceStavy().length;i++)
         {
-            if(akceptujuciStavDKA.contains(prechodovaTabulkaDKA.overAkceptujuciStav()[i])){
+            if(akceptujuciStavDKA.contains(prechodovaTabulkaDKA.vratAkceptujuceStavy()[i])){
                 jeAkceptujuciStav = true;
                 break;
             }

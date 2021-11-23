@@ -16,8 +16,6 @@ public class EkvivalentnyDKA {
         this.eSymboly = nedeterministickyKA.vratSymbolyAut();
         this.eZaciatocnyStav = nedeterministickyKA.vratZacStavNKA();
         this.prechodovaNKA = nedeterministickyKA.vratTabulkuNKA();
-
-
-
+        ePrechodovaTabulka = new HashMap<String, HashMap<String,HashSet<String>>>();
     }
 }

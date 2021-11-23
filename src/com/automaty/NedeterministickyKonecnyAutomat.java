@@ -27,14 +27,15 @@ public class NedeterministickyKonecnyAutomat {
         this.zaciatocnyStavNKA = zaciatocnyStavNKA;
         this.akceptujuciStavNKA = akceptujuciStavNKA;
         this.prechodovaTabulkaNKA = prechodovaTabulkaNKA;
+        System.out.print("Prechodova tabulka NKA\n");
         prechodovaTabulkaNKA.vypisTabulku();
         //overenie NKA
         if((prechodovaTabulkaNKA.overAutomat() > 1)){
             jeNKA = true;
         }
         else{
-            for(int i=0;i<prechodovaTabulkaNKA.overSymbolyVtabulke().length;i++){
-                if(prechodovaTabulkaNKA.overSymbolyVtabulke()[i].equals("epsilon")){
+            for(int i=0;i<prechodovaTabulkaNKA.vratSymbolyVTabulke().length;i++){
+                if(prechodovaTabulkaNKA.vratSymbolyVTabulke()[i].equals("epsilon")){
                     jeNKA = true;
                     break;
                 }
@@ -53,13 +54,13 @@ public class NedeterministickyKonecnyAutomat {
             }
         }
         //overovanie symbolov
-        for(int i=0;i < prechodovaTabulkaNKA.overSymbolyVtabulke().length;i++)
+        for(int i=0;i < prechodovaTabulkaNKA.vratSymbolyVTabulke().length;i++)
         {
-            if(symboly.contains(prechodovaTabulkaNKA.overSymbolyVtabulke()[i])){
+            if(symboly.contains(prechodovaTabulkaNKA.vratSymbolyVTabulke()[i])){
                 nachadzajuSaSymboly = true;
             }
             else{
-                if(prechodovaTabulkaNKA.overSymbolyVtabulke()[i] == "epsilon"){
+                if(prechodovaTabulkaNKA.vratSymbolyVTabulke()[i] == "epsilon"){
                     nachadzajuSaSymboly = true;
                 }
                 else {
@@ -69,9 +70,9 @@ public class NedeterministickyKonecnyAutomat {
             }
         }
         //overenie zaciatocneho stavu
-        for(int i=0;i < prechodovaTabulkaNKA.overZaciatocnyStav().length;i++)
+        for(int i=0;i < prechodovaTabulkaNKA.vratZaciatocnyStav().length;i++)
         {
-            if(zaciatocnyStavNKA.contains(prechodovaTabulkaNKA.overZaciatocnyStav()[i])){
+            if(zaciatocnyStavNKA.contains(prechodovaTabulkaNKA.vratZaciatocnyStav()[i])){
                 jeZaciatocnStav = true;
                 break;
             }
@@ -80,9 +81,9 @@ public class NedeterministickyKonecnyAutomat {
             }
         }
         //overenie akceptujuceho stavu
-        for(int i=0;i < prechodovaTabulkaNKA.overAkceptujuciStav().length;i++)
+        for(int i=0;i < prechodovaTabulkaNKA.vratAkceptujuceStavy().length;i++)
         {
-            if(akceptujuciStavNKA.contains(prechodovaTabulkaNKA.overAkceptujuciStav()[i])){
+            if(akceptujuciStavNKA.contains(prechodovaTabulkaNKA.vratAkceptujuceStavy()[i])){
                 jeAkceptujuciStav = true;
                 break;
             }
