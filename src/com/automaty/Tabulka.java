@@ -19,27 +19,6 @@ public class Tabulka<V,K> {
 
     }
 
-
-    // metody na vytvorenie prechodovej tabulky NKA/DKA automatu
- /*
-    public void pridajNasledujuciStav(String symbol,String... stav123){
-        nasledujuciStav = new HashSet<String>();
-        pomocna = new String[stav123.length];
-        pomocna = stav123;
-        for(int i=0;i< pomocna.length;i++){
-            nasledujuciStav.add(pomocna[i]);
-            overStavy.add(pomocna[i]);
-            kontrolaAkceptujucehoStavu.add(pomocna[i]);
-        }
-        prechod(symbol,nasledujuciStav);
-
-    }
-
-    public void prechod(String symbol, HashSet<String> naslStav){
-        pravidla = new HashMap<String,HashSet<String>>();
-        pravidla.put(symbol,naslStav);
-    }
-  */
     public void pridajRiadok(String stav, String symbol, String... stav123){
         nasledujuciStav = new HashSet<String>();
         pomocna = new String[stav123.length];
