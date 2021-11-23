@@ -9,9 +9,14 @@ public class EkvivalentnyDKA {
     private HashSet<String> eAkceptujuceStavy;
     private HashSet<String> eZaciatocnyStav;
     private HashMap<String, HashMap<String,HashSet<String>>> ePrechodovaTabulka;
+    private Tabulka prechodovaNKA;
 
     public EkvivalentnyDKA(NedeterministickyKonecnyAutomat nedeterministickyKA){
         this.eSymboly = nedeterministickyKA.vratSymbolyAut();
+        this.eZaciatocnyStav = nedeterministickyKA.vratZacStavNKA();
+        this.prechodovaNKA = nedeterministickyKA.vratTabulkuNKA();
+
+
 
     }
 }
