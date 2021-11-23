@@ -10,10 +10,11 @@ public class Tabulka<V,K> {
     //pomocne
     private List<Integer> pom = new ArrayList<Integer>();
     private String [] pomocna;
-    private Set<String> overStavy = new HashSet<String>();
-    private Set<String> overSym = new HashSet<String>();
-    private Set<String> kontrolaZaciatocnehoStavu = new HashSet<String>();
-    private Set<String> kontrolaAkceptujucehoStavu = new HashSet<String>();
+    private HashSet<String> eStavyPomocna = new HashSet<String>();
+    private HashSet<String> overStavy = new HashSet<String>();
+    private HashSet<String> overSym = new HashSet<String>();
+    private HashSet<String> kontrolaZaciatocnehoStavu = new HashSet<String>();
+    private HashSet<String> kontrolaAkceptujucehoStavu = new HashSet<String>();
 
     public Tabulka(){
 
@@ -23,6 +24,7 @@ public class Tabulka<V,K> {
         nasledujuciStav = new HashSet<String>();
         pomocna = new String[stav123.length];
         pomocna = stav123;
+        eStavyPomocna.add(Arrays.toString(pomocna).replace(", ",""));
         for(int i=0;i< pomocna.length;i++){
             nasledujuciStav.add(pomocna[i]);
             overStavy.add(pomocna[i]);
@@ -66,6 +68,9 @@ public class Tabulka<V,K> {
     }
     public String[] vratAkceptujuceStavy(){
         return kontrolaAkceptujucehoStavu.toArray(new String[kontrolaAkceptujucehoStavu.size()]);
+    }
+    public HashSet<String> eStavyDKA(){
+        return eStavyPomocna;
     }
 
 
