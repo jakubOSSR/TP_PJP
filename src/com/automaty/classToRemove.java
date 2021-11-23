@@ -31,7 +31,7 @@ public class classToRemove {
        zaciatocnyStavNKA.add("q0");
         //naplnenie prechodovej tabulky NKA
         prechodovaNKA = new Tabulka();
-        prechodovaNKA.pridajRiadok("q1","epsilon","q0");
+        prechodovaNKA.pridajRiadok("q2","0","q1");
         prechodovaNKA.pridajRiadok("q0","epsilon","q2");
         new NedeterministickyKonecnyAutomat(stavyNKA,symbolyNKA,zaciatocnyStavNKA,akceptujuciStavNKA,prechodovaNKA);
 
@@ -51,7 +51,7 @@ public class classToRemove {
         //naplnenie prechodovej tabulky DKA
         prechodovaDKA = new Tabulka();
         prechodovaDKA.pridajRiadok("q0","0","q2");
-        prechodovaDKA.pridajRiadok("q0","epsilon","q3");
+        prechodovaDKA.pridajRiadok("q0","1","q1");
         new DeterministickyKonecnyAutomat(stavyDKA,symbolyDKA,zaciatocnyStavDKA,akceptujuciStavDKA,prechodovaDKA);
 
 
