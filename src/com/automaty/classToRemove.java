@@ -6,16 +6,16 @@ public class classToRemove {
     public static void main (String [] args) throws Exception {
         //Deklaracia parametrov NKA
         HashSet<String> stavyNKA = new HashSet<>();
-        String akceptujuciStavNKA= null;
+        HashSet<String> akceptujuciStavNKA= new HashSet<>();
         HashSet<String> symbolyNKA = new HashSet<>();
-        String zaciatocnyStavNKA = null;
+        HashSet<String> zaciatocnyStavNKA = new HashSet<>();
         Tabulka prechodovaNKA;
 
         //Deklaracia parametrov DKA
         HashSet<String> stavyDKA = new HashSet<>();
-        String akceptujuciStavDKA= null;
+        HashSet<String> akceptujuciStavDKA= new HashSet<>();
         HashSet<String> symbolyDKA = new HashSet<>();
-        String zaciatocnyStavDKA = null;
+        HashSet<String> zaciatocnyStavDKA = new HashSet<>();
         Tabulka prechodovaDKA;
 
         //naplnenie Stavov NKA
@@ -26,13 +26,13 @@ public class classToRemove {
         symbolyNKA.add("0");
         symbolyNKA.add("1");
         //naplnenie Akceptujucich NKA
-       akceptujuciStavNKA = "q2";
+       akceptujuciStavNKA.add("q2");
         //najplnenie Zaciatocnych NKA
-        zaciatocnyStavNKA = "q0";
+       zaciatocnyStavNKA.add("q0");
         //naplnenie prechodovej tabulky NKA
         prechodovaNKA = new Tabulka();
-        prechodovaNKA.pridajRiadok("q1","0","q0","q2");
-        prechodovaNKA.pridajRiadok("q0","1","q1");
+        prechodovaNKA.pridajRiadok("q1","epsilon","q0");
+        prechodovaNKA.pridajRiadok("q0","epsilon","q2");
         new NedeterministickyKonecnyAutomat(stavyNKA,symbolyNKA,zaciatocnyStavNKA,akceptujuciStavNKA,prechodovaNKA);
 
 
@@ -45,12 +45,13 @@ public class classToRemove {
         symbolyDKA.add("0");
         symbolyDKA.add("1");
         //Naplnenie akceptujucich stavov
-        akceptujuciStavDKA = "q2";
+        akceptujuciStavDKA.add("q2");
         //Naplnenie zaciatocnych stavov
-        zaciatocnyStavDKA = "q0";
+        zaciatocnyStavDKA.add("q0");
         //naplnenie prechodovej tabulky DKA
         prechodovaDKA = new Tabulka();
         prechodovaDKA.pridajRiadok("q0","0","q2");
+        prechodovaDKA.pridajRiadok("q0","epsilon","q3");
         new DeterministickyKonecnyAutomat(stavyDKA,symbolyDKA,zaciatocnyStavDKA,akceptujuciStavDKA,prechodovaDKA);
 
 
