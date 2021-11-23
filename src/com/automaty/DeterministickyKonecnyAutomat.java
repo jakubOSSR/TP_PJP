@@ -8,8 +8,8 @@ public class DeterministickyKonecnyAutomat {
 
     private HashSet<String> stavyDKA;
     private HashSet<String> symboly;
-    private String zaciatocnyStavDKA;
-    private String akceptujuciStavDKA;
+    private HashSet<String> zaciatocnyStavDKA;
+    private HashSet<String> akceptujuciStavDKA;
     private Tabulka prechodovaTabulkaDKA;
 
     private boolean jeDKA = true;
@@ -19,7 +19,7 @@ public class DeterministickyKonecnyAutomat {
     private boolean jeZaciatocnStav;
 
     public DeterministickyKonecnyAutomat(HashSet<String> stavyDKA, HashSet<String> symboly,
-                                         String zaciatocnyStavDKA, String akceptujuciStavDKA,
+                                         HashSet<String> zaciatocnyStavDKA, HashSet<String> akceptujuciStavDKA,
                                          Tabulka prechodovaTabulkaDKA) throws Exception{
         this.stavyDKA=stavyDKA;
         this.symboly=symboly;
@@ -27,9 +27,16 @@ public class DeterministickyKonecnyAutomat {
         this.akceptujuciStavDKA=akceptujuciStavDKA;
         this.prechodovaTabulkaDKA = prechodovaTabulkaDKA;
         //overenie DKA
-        if(symboly.contains("epsilon") || prechodovaTabulkaDKA.overAutomat() > 1){
+        if((prechodovaTabulkaDKA.overAutomat() > 1)){
             jeDKA = false;
-
+        }
+        else{
+            for(int i=0;i<prechodovaTabulkaDKA.overSymbolyVtabulke().length;i++){
+                if(prechodovaTabulkaDKA.overSymbolyVtabulke()[i].equals("epsilon")){
+                    jeDKA = false;
+                    break;
+                }
+            }
         }
         //overenie stavov
         for(int i=0;i < prechodovaTabulkaDKA.overStavyVtabulke().length;i++)
@@ -54,12 +61,26 @@ public class DeterministickyKonecnyAutomat {
             }
         }
         //overenie zaciatocneho stavu
-        if(prechodovaTabulkaDKA.overZaciatocnyStav().contains(zaciatocnyStavDKA)){
-            jeZaciatocnStav = true;
+        for(int i=0;i < prechodovaTabulkaDKA.overZaciatocnyStav().length;i++)
+        {
+            if(zaciatocnyStavDKA.contains(prechodovaTabulkaDKA.overZaciatocnyStav()[i])){
+               jeZaciatocnStav = true;
+               break;
+            }
+            else{
+                jeZaciatocnStav=false;
+            }
         }
         //overenie akceptujuceho stavu
-        if(prechodovaTabulkaDKA.overAkceptujuciStav().contains(akceptujuciStavDKA)){
-            jeAkceptujuciStav = true;
+        for(int i=0;i < prechodovaTabulkaDKA.overAkceptujuciStav().length;i++)
+        {
+            if(akceptujuciStavDKA.contains(prechodovaTabulkaDKA.overAkceptujuciStav()[i])){
+                jeAkceptujuciStav = true;
+                break;
+            }
+            else{
+                jeAkceptujuciStav=false;
+            }
         }
 
         if(jeDKA==false){
@@ -84,10 +105,10 @@ public class DeterministickyKonecnyAutomat {
     public HashSet<String> vratSymbolyAut(){
         return symboly;
     }
-    public String vratZacStavDKA(){
+    public HashSet<String> vratZacStavDKA(){
         return zaciatocnyStavDKA;
     }
-    public String vratAkcStavDKA(){
+    public HashSet<String> vratAkcStavDKA(){
         return akceptujuciStavDKA;
     }
     public Tabulka vratTabulkuDKA(){return prechodovaTabulkaDKA;}
