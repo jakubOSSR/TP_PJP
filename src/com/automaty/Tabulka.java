@@ -12,8 +12,8 @@ public class Tabulka {
     private String [] pomocna;
     private Set<String> overStavy = new HashSet<String>();
     private Set<String> overSym = new HashSet<String>();
-    private HashSet<String> kontrolaZaciatocnehoStavu = new HashSet<String>();
-    private HashSet<String> kontrolaAkceptujucehoStavu = new HashSet<String>();
+    private Set<String> kontrolaZaciatocnehoStavu = new HashSet<String>();
+    private Set<String> kontrolaAkceptujucehoStavu = new HashSet<String>();
 
     public Tabulka(){
 
@@ -65,11 +65,11 @@ public class Tabulka {
     public String[] overSymbolyVtabulke(){
         return overSym.toArray(new String[overSym.size()]);
     }
-    public HashSet<String> overZaciatocnyStav(){
-        return kontrolaZaciatocnehoStavu;
+    public String[] overZaciatocnyStav(){
+        return kontrolaZaciatocnehoStavu.toArray(new String[kontrolaZaciatocnehoStavu.size()]);
     }
-    public HashSet<String> overAkceptujuciStav(){
-        return kontrolaAkceptujucehoStavu;
+    public String[] overAkceptujuciStav(){
+        return kontrolaAkceptujucehoStavu.toArray(new String[kontrolaAkceptujucehoStavu.size()]);
     }
 
 
