@@ -5,8 +5,8 @@ import java.util.*;
 public class NedeterministickyKonecnyAutomat {
     private HashSet<String> stavyNKA;
     private HashSet<String> symboly;
-    private String zaciatocnyStavNKA;
-    private String akceptujuciStavNKA;
+    private HashSet<String> zaciatocnyStavNKA;
+    private HashSet<String> akceptujuciStavNKA;
     private Tabulka prechodovaTabulkaNKA;
    //pomocne
     private boolean jeNKA;
@@ -20,7 +20,7 @@ public class NedeterministickyKonecnyAutomat {
 
 
     public NedeterministickyKonecnyAutomat(HashSet<String> stavyNKA, HashSet<String> symboly,
-                                           String zaciatocnyStavNKA, String akceptujuciStavNKA,
+                                           HashSet<String> zaciatocnyStavNKA, HashSet<String> akceptujuciStavNKA,
                                            Tabulka prechodovaTabulkaNKA) throws Exception {
         this.stavyNKA = stavyNKA;
         this.symboly = symboly;
@@ -29,8 +29,16 @@ public class NedeterministickyKonecnyAutomat {
         this.prechodovaTabulkaNKA = prechodovaTabulkaNKA;
         prechodovaTabulkaNKA.vypisTabulku();
         //overenie NKA
-        if((symboly.contains("epsilon")) || (prechodovaTabulkaNKA.overAutomat() > 1)){
+        if((prechodovaTabulkaNKA.overAutomat() > 1)){
             jeNKA = true;
+        }
+        else{
+            for(int i=0;i<prechodovaTabulkaNKA.overSymbolyVtabulke().length;i++){
+                if(prechodovaTabulkaNKA.overSymbolyVtabulke()[i].equals("epsilon")){
+                    jeNKA = true;
+                    break;
+                }
+            }
         }
 
         //overovania stavov
@@ -44,7 +52,6 @@ public class NedeterministickyKonecnyAutomat {
                 break;
             }
         }
-
         //overovanie symbolov
         for(int i=0;i < prechodovaTabulkaNKA.overSymbolyVtabulke().length;i++)
         {
@@ -52,17 +59,36 @@ public class NedeterministickyKonecnyAutomat {
                 nachadzajuSaSymboly = true;
             }
             else{
-                nachadzajuSaSymboly=false;
-                break;
+                if(prechodovaTabulkaNKA.overSymbolyVtabulke()[i] == "epsilon"){
+                    nachadzajuSaSymboly = true;
+                }
+                else {
+                    nachadzajuSaSymboly = false;
+                    break;
+                }
             }
         }
         //overenie zaciatocneho stavu
-        if(prechodovaTabulkaNKA.overZaciatocnyStav().contains(zaciatocnyStavNKA)){
-            jeZaciatocnStav = true;
+        for(int i=0;i < prechodovaTabulkaNKA.overZaciatocnyStav().length;i++)
+        {
+            if(zaciatocnyStavNKA.contains(prechodovaTabulkaNKA.overZaciatocnyStav()[i])){
+                jeZaciatocnStav = true;
+                break;
+            }
+            else{
+                jeZaciatocnStav=false;
+            }
         }
         //overenie akceptujuceho stavu
-        if(prechodovaTabulkaNKA.overAkceptujuciStav().contains(akceptujuciStavNKA)){
-            jeAkceptujuciStav = true;
+        for(int i=0;i < prechodovaTabulkaNKA.overAkceptujuciStav().length;i++)
+        {
+            if(akceptujuciStavNKA.contains(prechodovaTabulkaNKA.overAkceptujuciStav()[i])){
+                jeAkceptujuciStav = true;
+                break;
+            }
+            else{
+                jeAkceptujuciStav=false;
+            }
         }
 
 
@@ -91,10 +117,10 @@ public class NedeterministickyKonecnyAutomat {
     public HashSet<String> vratSymbolyAut(){
         return symboly;
     }
-    public String vratZacStavNKA(){
+    public HashSet<String> vratZacStavNKA(){
         return zaciatocnyStavNKA;
     }
-    public String vratAkcStavNKA(){
+    public HashSet<String> vratAkcStavNKA(){
         return akceptujuciStavNKA;
     }
     public Tabulka vratTabulkuNKA(){return prechodovaTabulkaNKA;}
