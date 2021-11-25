@@ -73,7 +73,4 @@ public class Tabulka {
     public HashMap<String, HashMap<String, HashSet<String>>> vratPrechodovuTabulku() {
         return prechodovaTabulka;
     }
-    public HashMap<String,HashSet<String>> vratPravidlaTabulky(){
-        return pravidla;
-    }
 }

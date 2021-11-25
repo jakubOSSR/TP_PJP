@@ -31,7 +31,7 @@ public class classToRemove {
        zaciatocnyStavNKA.add("q0");
         //naplnenie prechodovej tabulky NKA
         prechodovaNKA = new Tabulka();
-        prechodovaNKA.pridajRiadok("q0","0","q1");
+        prechodovaNKA.pridajRiadok("q0","0","q0");
         prechodovaNKA.pridajRiadok("q0","1","q1");
         prechodovaNKA.pridajRiadok("q1","0","q1","q2");
         prechodovaNKA.pridajRiadok("q1","1","q1");
