@@ -31,7 +31,7 @@ public class classToRemove {
        zaciatocnyStavNKA.add("q0");
         //naplnenie prechodovej tabulky NKA
         prechodovaNKA = new Tabulka();
-        prechodovaNKA.pridajRiadok("q0","0","q0");
+        prechodovaNKA.pridajRiadok("q0","0","q1");
         prechodovaNKA.pridajRiadok("q0","1","q1");
         prechodovaNKA.pridajRiadok("q1","0","q1","q2");
         prechodovaNKA.pridajRiadok("q1","1","q1");
@@ -40,22 +40,22 @@ public class classToRemove {
         NedeterministickyKonecnyAutomat nka = new NedeterministickyKonecnyAutomat(stavyNKA,symbolyNKA,zaciatocnyStavNKA,akceptujuciStavNKA,prechodovaNKA);
 
 
-
         //Naplnenie stavov DKA
         stavyDKA.add("q0");
-        stavyDKA.add("q2");
+        stavyDKA.add("q1");
         stavyDKA.add("q3");
         //Naplnenie symbolov DKA
         symbolyDKA.add("0");
         symbolyDKA.add("1");
         //Naplnenie akceptujucich stavov
-        akceptujuciStavDKA.add("q3");
+        akceptujuciStavDKA.add("q1");
         //Naplnenie zaciatocnych stavov
         zaciatocnyStavDKA.add("q0");
         //naplnenie prechodovej tabulky DKA
         prechodovaDKA = new Tabulka();
-        prechodovaDKA.pridajRiadok("q0","0","q2");
-        prechodovaDKA.pridajRiadok("q0","1","q3");
+        prechodovaDKA.pridajRiadok("q0","0","q3");
+        prechodovaDKA.pridajRiadok("q1","1","q1");
+
         new DeterministickyKonecnyAutomat(stavyDKA,symbolyDKA,zaciatocnyStavDKA,akceptujuciStavDKA,prechodovaDKA);
         new EkvivalentnyDKA(nka);
 
