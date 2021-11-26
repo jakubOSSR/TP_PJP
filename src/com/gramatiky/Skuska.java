@@ -1,5 +1,6 @@
 package com.gramatiky;
 
+import com.automaty.Tabulka;
 import org.junit.platform.engine.support.descriptor.FileSystemSource;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class Skuska {
         terminaly.add("d");
 
         neterminaly.add("S");
-        neterminaly.add("a");
+        neterminaly.add("A");
         neterminaly.add("B");
         neterminaly.add("C");
         neterminaly.add("D");
@@ -37,7 +38,25 @@ public class Skuska {
         Pravidlo pravidlo6 = new Pravidlo(new ArrayList<String>(Arrays.asList("D")),new ArrayList<String>(Arrays.asList("e")));
 
         LinkedHashSet<Pravidlo> pravidla = new LinkedHashSet<Pravidlo>(Arrays.asList(pravidlo1, pravidlo2, pravidlo3, pravidlo4, pravidlo5, pravidlo6));
-        RegularnaGramatika reg = new RegularnaGramatika(terminaly,neterminaly,zaciatocnySymbol,pravidla);
+       new RegularnaGramatika(terminaly,neterminaly,zaciatocnySymbol,pravidla);
+        Tabulka dkakrg;
+        dkakrg = new Tabulka();
+        for (Pravidlo p: pravidla){
+            if (p.getPravaStrana().size() == 1){
+                if (terminaly.contains(p.getPravaStrana().get(0))){
+
+
+                }
+            }
+            if (p.getPravaStrana().size() == 2){
+                if (terminaly.contains(p.getPravaStrana().get(0)) & neterminaly.contains(p.getPravaStrana().get(1))){
+
+                    dkakrg.pridajRiadok(p.getLavaStrana().get(0), p.getPravaStrana().get(0),p.getPravaStrana().get(1));
+
+                }
+            }
+        }
+        dkakrg.vypisTabulku();
 
 
     }
