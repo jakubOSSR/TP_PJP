@@ -6,26 +6,47 @@ import java.util.*;
 
 public class FirstAFollow {
 
-    public static ArrayList<String> first(ArrayList<String> retazecFirst, BezkontextovaGramatika g) throws Exception {
-        ArrayList<String> vysledok = new ArrayList<>();
-        String eps = "epsilon";
-        Iterator itr = g.getPravidla().iterator();
-        if (g.getTerminaly().contains(retazecFirst.get(0))) {
+    private  HashSet<String> mnozina;
+    private  HashMap<String,HashSet<String>> vysledok = new HashMap<>();
+    String eps = "epsilon";
+
+    public void first(BezkontextovaGramatika g) throws Exception {
+
+
+        for (String t : g.getTerminaly()){
+            mnozina = new HashSet<>();
+            mnozina.add(t);
+            vysledok.put(t,mnozina);
+        }
+
+       for(Pravidlo p: g.getPravidla()){
+           mnozina = new HashSet<>();
+            if(g.getTerminaly().contains(p.getPravaStrana().get(0))) {
+                mnozina.add(p.getPravaStrana().get(0));
+                String symbol = p.getLavaStrana().get(0);
+                if(vysledok.containsKey(symbol)){
+                  vysledok.get(symbol).add(p.getPravaStrana().get(0));
+                }
+                else
+                    vysledok.put(p.getLavaStrana().get(0),mnozina);
+
+            }
+        }
+
+        /*if (g.getTerminaly().contains(retazecFirst.get(0))) {
                 vysledok.add(retazecFirst.get(0));
         } else {
                 if (g.getNeterminaly().contains(retazecFirst.get(0))) {
-                   for (int i = 0; i < retazecFirst.size(); i++) {
-                        for (Pravidlo p : g.getPravidla()) {
-                            if (p.getLavaStrana().contains(retazecFirst.get(0))) { //getLavaStrana alebo getPravaStrana???
-                                retazecFirst.clear();
-                                    retazecFirst.add(p.getPravaStrana().get(0));
-                                    if (g.getTerminaly().contains(retazecFirst.get(0))) {
+                    for(Pravidlo p: g.getPravidla()){
+                        if (p.getLavaStrana().contains(retazecFirst.get(0))) {
+                            retazecFirst.clear();
+                            retazecFirst.add(p.getPravaStrana().get(0));
+                                if (g.getTerminaly().contains(retazecFirst.get(0))) {
                                     vysledok.add(p.getPravaStrana().get(0));
-                                    }
-                            }
-                            //itr.next();
+                                    g.getPravidla().iterator().next();
+                                }
                         }
-                   }
+                    }
                 } else {
                     if (retazecFirst.get(0).equals(eps)) {
                         vysledok.add(retazecFirst.get(0));
@@ -33,12 +54,18 @@ public class FirstAFollow {
                         throw new Exception("Prvy symbol sa nenachadza medzi terminalmi ani neterminalmi");
                     }
                 }
-            }
+            }*/
 
 
-        System.out.println(vysledok);
+
+
        // System.out.println(retazecFirst);
-        return vysledok;
+
+    }
+    public void vypisMnozinu(){
+        for(Map.Entry<String,HashSet<String>> s : vysledok.entrySet()){
+            System.out.println("First("+s.getKey()+") = " +s.getValue());
+        }
     }
 
     }
