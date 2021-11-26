@@ -1,6 +1,7 @@
 package first_follow;
 import com.gramatiky.*;
 
+import javax.naming.event.ObjectChangeListener;
 import java.security.PrivilegedAction;
 import java.util.*;
 
@@ -41,19 +42,40 @@ public class FirstAFollow {
                     vysledok.put(symbol,mnozina);
             }
             else if(g.getNeterminaly().contains(p.getPravaStrana().get(0))){
-                    najdiMnozinu(p.getPravaStrana().get(0));
-                        if(vysledok.containsKey(symbol)){
-                            vysledok.get(symbol).add(mnozina.toString());
-
-                        }
-                        else
-                            vysledok.put(symbol,mnozina);
-
-
-                    }
-
+                mnozina.add(p.getPravaStrana().get(0));
+                if(vysledok.containsKey(symbol)){
+                    vysledok.get(symbol).add(mnozina.toString().replace("[","").replace("]",""));
+                }
+                else
+                    vysledok.put(symbol,mnozina);
 
             }
+           for(Map.Entry<String,HashSet<String>> s : vysledok.entrySet()){
+               for(String neterminal: g.getNeterminaly()){
+               if (s.getValue().contains(neterminal)){
+                       iteruj(neterminal);
+                   if(vysledok.containsKey(symbol)){
+                       vysledok.get(symbol).add(mnozina.toString().replace("[","").replace("]",""));
+                   }
+                   else
+                       vysledok.put(symbol,mnozina);
+
+
+               }
+           }}
+
+            }
+        for(Map.Entry<String,HashSet<String>> s : vysledok.entrySet()){
+            for (String neterminal: g.getNeterminaly()) {
+                System.out.println(neterminal);
+                if (s.getValue().contains(neterminal)) {
+                    System.out.println("okej");
+                    //vysledok.remove(s.getKey(), s.getValue());
+                }
+            }
+
+        }
+      // vycistiVypis(g.getNeterminaly());
         }
 
         /*if (g.getTerminaly().contains(retazecFirst.get(0))) {
@@ -92,13 +114,44 @@ public class FirstAFollow {
     }
     public HashSet<String> najdiMnozinu(String neterminal){
         for(Map.Entry<String,HashSet<String>> s: vysledok.entrySet()) {
-            mnozina = s.getValue();
+            if(s.getKey().equals(neterminal)){
+                    mnozina.add(s.getValue().toString());
+
+                }
+
+                }
+
+            return mnozina;
+            }
+
+
+        public HashSet<String> iteruj(String neterminal){
+            for(Map.Entry<String,HashSet<String>> s: vysledok.entrySet()) {
+                    if (s.getValue().contains(neterminal)) {
+                        najdiMnozinu(neterminal);
+
+                    }
+
+            } return mnozina;
         }
+      /*  public void vycistiVypis(HashSet neterminaly){
+        System.out.println(neterminaly);
+            for(Map.Entry<String,HashSet<String>> s : vysledok.entrySet()){
+                String neterminal = neterminaly.toString();
+                    System.out.println(neterminal);
+                    if (s.getValue().contains(neterminal)) {
+                        System.out.println("okej");
+                        vysledok.remove(s.getKey(),s.getValue());
+                    }
 
-        return mnozina;
+
+                }
+        }*/
+
+
     }
 
-    }
+
     /*private HashSet<String> terminaly;
     private HashSet<String> neterminaly;
     private String zaciatocnySymbol;
