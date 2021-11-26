@@ -6,7 +6,7 @@ import java.util.*;
 
 public class FirstAFollow {
 
-    private  HashSet<String> mnozina;
+    private  HashSet<String> mnozina = new HashSet<>();
     private  HashMap<String,HashSet<String>> vysledok = new HashMap<>();
     String eps = "epsilon";
 
@@ -20,16 +20,25 @@ public class FirstAFollow {
         }
 
        for(Pravidlo p: g.getPravidla()){
+           String symbol = p.getLavaStrana().get(0);
            mnozina = new HashSet<>();
             if(g.getTerminaly().contains(p.getPravaStrana().get(0))) {
                 mnozina.add(p.getPravaStrana().get(0));
-                String symbol = p.getLavaStrana().get(0);
                 if(vysledok.containsKey(symbol)){
                   vysledok.get(symbol).add(p.getPravaStrana().get(0));
                 }
                 else
                     vysledok.put(p.getLavaStrana().get(0),mnozina);
 
+
+            }
+            else if(p.getPravaStrana().get(0).equals(eps)){
+                mnozina.add(eps);
+                if(vysledok.containsKey(symbol)){
+                    vysledok.get(symbol).add(eps);
+                }
+                else
+                    vysledok.put(symbol,mnozina);
             }
         }
 
