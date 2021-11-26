@@ -9,15 +9,10 @@ public class NedeterministickyKonecnyAutomat {
     private HashSet<String> akceptujuciStavNKA;
     private Tabulka prechodovaTabulkaNKA;
    //pomocne
-    private boolean jeNKA;
     private boolean nachadzajuSaStavy;
     private boolean nachadzajuSaSymboly;
     private boolean jeAkceptujuciStav;
     private boolean jeZaciatocnStav;
-
-
-
-
 
     public NedeterministickyKonecnyAutomat(HashSet<String> stavyNKA, HashSet<String> symboly,
                                            HashSet<String> zaciatocnyStavNKA, HashSet<String> akceptujuciStavNKA,
@@ -27,20 +22,9 @@ public class NedeterministickyKonecnyAutomat {
         this.zaciatocnyStavNKA = zaciatocnyStavNKA;
         this.akceptujuciStavNKA = akceptujuciStavNKA;
         this.prechodovaTabulkaNKA = prechodovaTabulkaNKA;
-       // System.out.print("Prechodova tabulka NKA\n");
-       // prechodovaTabulkaNKA.vypisTabulku();
-        //overenie NKA
-        if((prechodovaTabulkaNKA.overAutomat() > 1)){
-            jeNKA = true;
-        }
-        else{
-            for(int i=0;i<prechodovaTabulkaNKA.vratSymbolyVTabulke().length;i++){
-                if(prechodovaTabulkaNKA.vratSymbolyVTabulke()[i].equals("epsilon")){
-                    jeNKA = true;
-                    break;
-                }
-            }
-        }
+         //System.out.print("Prechodova tabulka NKA\n");
+        // prechodovaTabulkaNKA.vypisTabulku();
+
 
         //overovania stavov
         for(int i=0;i < prechodovaTabulkaNKA.overStavyVtabulke().length;i++)
@@ -93,9 +77,6 @@ public class NedeterministickyKonecnyAutomat {
         }
 
 
-        if(jeNKA==false){
-            throw new Exception("Zadaný automat nie je NKA automat!!!!");
-        }
         if(nachadzajuSaStavy==false){
             throw new Exception("Stavy v tabulke NKA automatu sa nenachádzaju v množine stavov!!");
         }

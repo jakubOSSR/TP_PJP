@@ -3,7 +3,7 @@ package com.automaty;
 import java.util.*;
 
 
-public class Tabulka<V,K> {
+public class Tabulka {
     private HashMap<String, HashMap<String,HashSet<String>>> prechodovaTabulka = new HashMap<String, HashMap<String,HashSet<String>>>();
     private HashMap<String,HashSet<String>> pravidla;
     private HashSet<String> nasledujuciStav;
@@ -16,9 +16,6 @@ public class Tabulka<V,K> {
     private HashSet<String> kontrolaZaciatocnehoStavu = new HashSet<String>();
     private HashSet<String> kontrolaAkceptujucehoStavu = new HashSet<String>();
 
-    public Tabulka(){
-
-    }
 
     public void pridajRiadok(String stav, String symbol, String... stav123){
         nasledujuciStav = new HashSet<String>();
@@ -73,8 +70,7 @@ public class Tabulka<V,K> {
         return eStavyPomocna;
     }
 
-
-
-
-
+    public HashMap<String, HashMap<String, HashSet<String>>> vratPrechodovuTabulku() {
+        return prechodovaTabulka;
+    }
 }

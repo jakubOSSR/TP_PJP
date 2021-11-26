@@ -27,7 +27,7 @@ public class DeterministickyKonecnyAutomat {
         this.akceptujuciStavDKA=akceptujuciStavDKA;
         this.prechodovaTabulkaDKA = prechodovaTabulkaDKA;
         //System.out.print("Prechodova tabulka DKA\n");
-       // prechodovaTabulkaDKA.vypisTabulku();
+        //prechodovaTabulkaDKA.vypisTabulku();
         //overenie DKA
         if((prechodovaTabulkaDKA.overAutomat() > 1)){
             jeDKA = false;
