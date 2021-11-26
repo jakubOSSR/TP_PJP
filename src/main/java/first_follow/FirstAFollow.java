@@ -40,6 +40,20 @@ public class FirstAFollow {
                 else
                     vysledok.put(symbol,mnozina);
             }
+            else if(g.getNeterminaly().contains(p.getPravaStrana().get(0))){
+                    najdiMnozinu(p.getPravaStrana().get(0));
+                        if(vysledok.containsKey(symbol)){
+                            vysledok.get(symbol).add(mnozina.toString());
+
+                        }
+                        else
+                            vysledok.put(symbol,mnozina);
+
+
+                    }
+
+
+            }
         }
 
         /*if (g.getTerminaly().contains(retazecFirst.get(0))) {
@@ -70,11 +84,18 @@ public class FirstAFollow {
 
        // System.out.println(retazecFirst);
 
-    }
+
     public void vypisMnozinu(){
         for(Map.Entry<String,HashSet<String>> s : vysledok.entrySet()){
             System.out.println("First("+s.getKey()+") = " +s.getValue());
         }
+    }
+    public HashSet<String> najdiMnozinu(String neterminal){
+        for(Map.Entry<String,HashSet<String>> s: vysledok.entrySet()) {
+            mnozina = s.getValue();
+        }
+
+        return mnozina;
     }
 
     }
