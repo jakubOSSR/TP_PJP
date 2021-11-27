@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 
 public class Skuska {
+
     public static void main (String [] args) throws Exception {
 
 
@@ -40,31 +41,9 @@ public class Skuska {
         LinkedHashSet<Pravidlo> pravidla = new LinkedHashSet<Pravidlo>(Arrays.asList(pravidlo1, pravidlo2, pravidlo3, pravidlo4, pravidlo5, pravidlo6));
 
 
-        LinkedHashSet<String> akceptujuciStavDKA=new LinkedHashSet<>();
-        int i = 0;
-        new RegularnaGramatika(terminaly,neterminaly,zaciatocnySymbol,pravidla);
-        Tabulka tabulka;
-        tabulka = new Tabulka();
-        for (Pravidlo p: pravidla){
-            if (p.getPravaStrana().size() == 1){
-                if (terminaly.contains(p.getPravaStrana().get(0))){
-                    akceptujuciStavDKA.add("qf" + i);
-                    for(String c: akceptujuciStavDKA ) {
 
-                        tabulka.pridajRiadok(p.getLavaStrana().get(0), p.getPravaStrana().get(0), c);
-                        i++;
-                    }
-                }
-            }
-            if (p.getPravaStrana().size() == 2){
-                if (terminaly.contains(p.getPravaStrana().get(0)) & neterminaly.contains(p.getPravaStrana().get(1))){
+        DKAkRegularnejG pom = new DKAkRegularnejG(terminaly,neterminaly,zaciatocnySymbol,pravidla);
 
-                    tabulka.pridajRiadok(p.getLavaStrana().get(0), p.getPravaStrana().get(0),p.getPravaStrana().get(1));
-
-                }
-            }
-        }
-        tabulka.vypisTabulku();
 
 
     }
