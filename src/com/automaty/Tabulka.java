@@ -7,6 +7,7 @@ public class Tabulka {
     private HashMap<String, HashMap<String,HashSet<String>>> prechodovaTabulka = new HashMap<String, HashMap<String,HashSet<String>>>();
     private HashMap<String,HashSet<String>> pravidla;
     private HashSet<String> nasledujuciStav;
+    private HashMap<String,HashSet<String>> zdruzenyStavPravidlo;
     //pomocne
     private List<Integer> pom = new ArrayList<Integer>();
     private String [] pomocna;
@@ -42,9 +43,40 @@ public class Tabulka {
             prechodovaTabulka.put(stav, pravidla);
         }
     }
-
     public String[] overStavyVtabulke(){
         return overStavy.toArray(new String[overStavy.size()]);
+
+    }
+    public String vratNaslStavZS(String zdruzenyStav, String symbol){
+        for (Map.Entry<String,HashMap<String,HashSet<String>>> s : prechodovaTabulka.entrySet()) {
+            if(s.getKey().equals(zdruzenyStav)){
+                pravidla = s.getValue();
+               for(Map.Entry<String,HashSet<String>> l : pravidla.entrySet()){
+                   if(l.getKey().equals(symbol)){
+                       return l.getValue().toString().replace(", ","")
+                                                     .replace("[","")
+                                                     .replace("]","");
+                   }
+               }
+            }
+        }
+        return null;
+    }
+    public HashMap<String,HashSet<String>> vratPravidlaStavu(String zdruzenyStav){
+        for (Map.Entry<String,HashMap<String,HashSet<String>>> s : prechodovaTabulka.entrySet()) {
+            if(s.getKey().equals(zdruzenyStav)){
+                zdruzenyStavPravidlo = s.getValue();
+            }
+        }
+        return zdruzenyStavPravidlo;
+    }
+    public boolean obsahujeZdruzenyStav(String zdruzenyStav){
+        for (Map.Entry<String,HashMap<String,HashSet<String>>> s : prechodovaTabulka.entrySet()) {
+            if(s.getKey().equals(zdruzenyStav)){
+                return true;
+            }
+        }
+        return false;
 
     }
 
