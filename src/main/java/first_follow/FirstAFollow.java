@@ -41,20 +41,27 @@ public class FirstAFollow {
             } }
         for (Pravidlo p : g.getPravidla()) {
             String symbol = p.getLavaStrana().get(0);
-            if (g.getNeterminaly().contains(p.getPravaStrana().get(0))) {  //ak je na pravej strane neterminal
-            najdiMnozinu(p.getPravaStrana().get(0));
-                //Iterator<String> itr = mnozina.iterator();
+            for (int i = 0; i < p.getPravaStrana().size(); i++) {
+                if (g.getNeterminaly().contains(p.getPravaStrana().get(0))) {  //ak je na pravej strane neterminal
+                    najdiMnozinu(p.getPravaStrana().get(0));
+                    if (mnozina.contains("epsilon")) {
+                        najdiMnozinu(p.getPravaStrana().get(i));
+                        mnozina.remove("epsilon");
+                   }
 
-           // while(itr.hasNext()) {
-                //System.out.println(mnozina);
-               // System.out.println(itr.next());
-                //if (!.getValue().contains(ele)) {
+                    //Iterator<String> itr = mnozina.iterator();
+
+                    // while(itr.hasNext()) {
+                    //System.out.println(mnozina);
+                    // System.out.println(itr.next());
+                    //if (!.getValue().contains(ele)) {
                     //mnozina.add(ele);
                     if (vysledok.containsKey(symbol)) {
                         vysledok.get(symbol).addAll(mnozina);
                     } else
                         vysledok.put(symbol, mnozina);                      // tak sa do vysledku prida neterminal
-                //}
+                    //}
+                }
             }
         }
            /* for (Map.Entry<String, HashSet<String>> s : vysledok.entrySet()) {  //prehladavaju sa vysledky
