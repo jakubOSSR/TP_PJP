@@ -43,7 +43,6 @@ public class Tabulka {
         }
     }
     public void pridajRiadokPreZS(String aktStav, String symbol, HashSet<String> naslStav){
-        System.out.println("Aktualny stav: "+aktStav+" symbol: "+symbol+" nasledujuci stav: "+naslStav);
         if(prechodovaTabulka.containsKey(aktStav)){
             if(pravidla1.containsKey(symbol)){
                 vratNachadzajuciSaStav(symbol,aktStav);
