@@ -98,28 +98,3 @@ public class Tabulka {
     }
 
 }
-/*
-  public void pridajRiadokPreZS(String aktStav, String symbol, String naslStav){
-        String s = aktStav.toString().replace("[","").replace("]","");
-        nasledujuciStav1=new HashSet<String>();
-        nasledujuciStav1.add(naslStav);
-        if(prechodovaTabulka.containsKey(s)){
-            if(pravidla1.containsKey(symbol)){
-                if(obsahujeNaslStav(naslStav,symbol,s) == false){
-                   if(!nasledujuciStav1.toString().contains(pomocnaNaslStav.toString().replace("[","").replace("]",""))){
-                       nasledujuciStav1.addAll(pomocnaNaslStav);
-                   }
-                    prechodovaTabulka.get(s).put(symbol,nasledujuciStav1);
-                }
-            }
-            else{
-                prechodovaTabulka.get(s).put(symbol,nasledujuciStav1);
-            }
-        }
-        else{
-            pravidla1=new HashMap<String,HashSet<String>>();
-            pravidla1.put(symbol,nasledujuciStav1);
-            prechodovaTabulka.put(s,pravidla1);
-        }
-    }
- */
