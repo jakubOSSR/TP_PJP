@@ -96,11 +96,12 @@ public class FirstAFollow {
         System.out.println(vysledokfirst);
         return vysledokfirst;
     }
+
     public static HashMap<String, ArrayList<String>> follow(BezkontextovaGramatika g) {
         HashMap<String, ArrayList<String>> vysledokfirst = first(g);
         HashMap<String, ArrayList<String>> vysledokfollow = new HashMap<>();
 
-        for(String n: g.getNeterminaly()){
+        for (String n : g.getNeterminaly()) {
             ArrayList<String> mnozina = new ArrayList<>();
             vysledokfollow.put(n, mnozina);
         }
@@ -109,10 +110,10 @@ public class FirstAFollow {
         vysledokfollow.get(g.getZaciatocnySymbol()).add("epsilon");
 
         boolean zmena = true;
-        while(zmena){
+        while (zmena) {
             zmena = false;
-            for(Pravidlo p: g.getPravidla()){
-                for(int i = 0; i < p.getPravaStrana().size(); i++) {
+            for (Pravidlo p : g.getPravidla()) {
+                for (int i = 0; i < p.getPravaStrana().size(); i++) {
                     if (g.getNeterminaly().contains(p.getPravaStrana().get(i))) {
                         if (i + 1 != p.getPravaStrana().size()) {
                             if (g.getTerminaly().contains(p.getPravaStrana().get(i + 1))) {
@@ -129,11 +130,13 @@ public class FirstAFollow {
                                                 jeepsilon = true;
                                             }
                                             if (!vysledokfirst.get(p.getPravaStrana().get(j)).get(k).equals("epsilon")) {
-                                                if (!vysledokfollow.get(p.getPravaStrana().get(i)).contains(vysledokfirst.get(p.getPravaStrana().get(i + 1)).get(k))) {
-                                                    vysledokfollow.get(p.getPravaStrana().get(i)).add(vysledokfirst.get(p.getPravaStrana().get(i + 1)).get(k));
+                                                if(k < vysledokfirst.get(p.getPravaStrana().get(j)).size()){
+                                                if (!vysledokfollow.get(p.getPravaStrana().get(i)).contains(vysledokfirst.get(p.getPravaStrana().get(j)).get(k))) {
+                                                    vysledokfollow.get(p.getPravaStrana().get(i)).add(vysledokfirst.get(p.getPravaStrana().get(j)).get(k));
 
                                                     zmena = true;
                                                 }
+                                            }
                                             }
                                         }
                                     }
@@ -165,39 +168,70 @@ public class FirstAFollow {
                     }
                 }
             }
+
+
+        }
+        for (Pravidlo p : g.getPravidla()) {
             String lavaStrana = g.getZaciatocnySymbol();
-            for(Pravidlo p: g.getPravidla()) {
-                    if (p.getLavaStrana().get(0).equals(lavaStrana)) {
-                        for (int m = (p.getPravaStrana().size()) - 1; m >= 0; m--) {
-                            if (m + 1 == p.getPravaStrana().size()) {
-                                if (g.getNeterminaly().contains(p.getPravaStrana().get(m))) {
-                                    System.out.println(p.getLavaStrana().get(0));
-                                    if (!vysledokfollow.get(p.getPravaStrana().get(m)).contains("epsilon")) {
-                                        vysledokfollow.get(p.getPravaStrana().get(m)).add("epsilon");
-                                    }
-                                }
+            if (p.getLavaStrana().get(0).equals(lavaStrana)) {
+                for (int m = (p.getPravaStrana().size()) - 1; m >= 0; m--) {
+                    if (m + 1 == p.getPravaStrana().size()) {
+                        if (g.getNeterminaly().contains(p.getPravaStrana().get(m))) {
+                            if (!vysledokfollow.get(p.getPravaStrana().get(m)).contains("epsilon")) {
+                                vysledokfollow.get(p.getPravaStrana().get(m)).add("epsilon");
                             }
-                            if (vysledokfirst.get(p.getPravaStrana().get(m)).contains("epsilon")) {
-                                if ((m - 1) >= 0){
+                        }
+                    }
+                    if (vysledokfirst.get(p.getPravaStrana().get(m)).contains("epsilon")) {
+                        if ((m >= 1)) {
+                            if (g.getNeterminaly().contains(p.getPravaStrana().get(m - 1))) {
+                                if (!p.getPravaStrana().get(m - 1).equals("epsilon")) {
                                     if (!vysledokfollow.get(p.getPravaStrana().get(m - 1)).contains("epsilon")) {
                                         vysledokfollow.get(p.getPravaStrana().get(m - 1)).add("epsilon");
                                     }
                                 }
                             }
-                            for(Pravidlo o: g.getPravidla()){
-                                if(p.getLavaStrana().get(0).equals(p.getPravaStrana().get(m))){
+                        }
+                    }
 
+                }
+
+            }
+
+        }
+        String lavaStrana = g.getZaciatocnySymbol();
+        for (Pravidlo p : g.getPravidla()) {
+            if (p.getLavaStrana().get(0).equals(lavaStrana)) {
+                for (int m = (p.getPravaStrana().size()) - 1; m >= 0; m--) {
+                    if (g.getNeterminaly().contains(p.getPravaStrana().get(m))) {
+                        lavaStrana = p.getPravaStrana().get(m);
+                        for (Pravidlo o : g.getPravidla()) {
+                            if (o.getLavaStrana().get(0).equals(lavaStrana)) {
+                                System.out.println(lavaStrana);
+                                for (int n = (o.getPravaStrana().size()) - 1; n >= 0; n--) {
+                                    if (g.getNeterminaly().contains(o.getPravaStrana().get(n))) {
+                                        if (!vysledokfollow.get(o.getPravaStrana().get(n)).contains("epsilon")) {
+                                            vysledokfollow.get(o.getPravaStrana().get(n)).add("epsilon");
+                                            lavaStrana = o.getPravaStrana().get(n);
+                                        }
+                                    } else {
+                                        break;
+                                    }
                                 }
                             }
                         }
                     }
+                    else {
+                        break;
+                    }
+                }
             }
         }
         System.out.println(vysledokfollow);
         return vysledokfollow;
-        }
-
     }
+}
+
 
 
 
