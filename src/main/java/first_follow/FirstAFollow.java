@@ -122,37 +122,36 @@ public class FirstAFollow {
                                     zmena = true;
                                 }
                             } else {
-                                boolean jeepsilon = true;
                                 for (int j = i + 1; j < p.getPravaStrana().size(); j++) {
-                                    if (jeepsilon) {
-                                        for (int k = 0; k < vysledokfirst.get(p.getPravaStrana().get(j)).size(); k++) {
-                                            if (vysledokfirst.get(p.getPravaStrana().get(j)).equals("epsilon")) {
-                                                jeepsilon = true;
-                                            }
-                                            if (!vysledokfirst.get(p.getPravaStrana().get(j)).get(k).equals("epsilon")) {
-                                                if(k < vysledokfirst.get(p.getPravaStrana().get(j)).size()){
-                                                if (!vysledokfollow.get(p.getPravaStrana().get(i)).contains(vysledokfirst.get(p.getPravaStrana().get(j)).get(k))) {
-                                                    vysledokfollow.get(p.getPravaStrana().get(i)).add(vysledokfirst.get(p.getPravaStrana().get(j)).get(k));
+                                    for (int k = 0; k < vysledokfirst.get(p.getPravaStrana().get(j)).size(); k++) {
+                                        if (!vysledokfirst.get(p.getPravaStrana().get(j)).get(k).equals("epsilon")) {
+                                            //if(k < vysledokfirst.get(p.getPravaStrana().get(j)).size()){
+                                            if (!vysledokfollow.get(p.getPravaStrana().get(i)).contains(vysledokfirst.get(p.getPravaStrana().get(j)).get(k))) {
+                                                vysledokfollow.get(p.getPravaStrana().get(i)).add(vysledokfirst.get(p.getPravaStrana().get(j)).get(k));
 
+                                                zmena = true;
+                                            }
+                                            //}
+
+                                        }
+                                    }
+                                    if (!vysledokfirst.get(p.getPravaStrana().get(j)).contains("epsilon")) {
+                                        break;
+                                    }
+                                    if (j + 1 == p.getPravaStrana().size()){
+                                        for (int k = 0; k < vysledokfollow.get(p.getLavaStrana().get(0)).size(); k++) {
+                                            if (!vysledokfollow.get(p.getLavaStrana().get(0)).get(k).equals("epsilon")) {
+                                                if (!vysledokfollow.get(p.getPravaStrana().get(i)).contains(vysledokfollow.get(p.getLavaStrana().get(0)).get(k))) {
+                                                    vysledokfollow.get(p.getPravaStrana().get(i)).add(vysledokfollow.get(p.getLavaStrana().get(0)).get(k));
                                                     zmena = true;
                                                 }
                                             }
-                                            }
                                         }
-                                    }
+                                }
 
 
                                 }
-                                if (jeepsilon) {
-                                    for (int k = 0; k < vysledokfollow.get(p.getLavaStrana().get(0)).size(); k++) {
-                                        if (!vysledokfollow.get(p.getLavaStrana().get(0)).get(k).equals("epsilon")) {
-                                            if (!vysledokfollow.get(p.getPravaStrana().get(i)).contains(vysledokfollow.get(p.getLavaStrana().get(0)).get(k))) {
-                                                vysledokfollow.get(p.getPravaStrana().get(i)).add(vysledokfollow.get(p.getLavaStrana().get(0)).get(k));
-                                                zmena = true;
-                                            }
-                                        }
-                                    }
-                                }
+
                             }
                         } else {
                             for (int l = 0; l < vysledokfollow.get(p.getLavaStrana().get(0)).size(); l++) {
