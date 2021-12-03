@@ -175,7 +175,7 @@ public class FirstAFollow {
 
         }
         /*Nasledujuca cast riesi pridavanie epsilonu do follow mnoziny neterminalov,
-        ktore sa mozu nachadzat na konci niektorev vetnej formy:
+        ktore sa mozu nachadzat na konci niektorej vetnej formy:
         Prípad: S->ABC, epsilon patri do first(C) a first(B), takze do follow vsetkych troch neterminalov patri epsilon*/
         for (Pravidlo p : g.getPravidla()) {                //prehladame pravidla
             if (p.getLavaStrana().get(0).equals(g.getZaciatocnySymbol())) {   //ked je na lavej strane zaciatocny symbol
@@ -197,7 +197,9 @@ public class FirstAFollow {
                                 }
                             }
                         }
-
+                    }
+                    else{
+                        break;
                     }
 
                 }
@@ -213,21 +215,25 @@ public class FirstAFollow {
             if (p.getLavaStrana().get(0).equals(lavaStrana)) {
                 for (int m = (p.getPravaStrana().size()) - 1; m >= 0; m--) {   //prehladavame odkonca pravu stranu pravidla s prislusnou lavou stranou
                     if (g.getNeterminaly().contains(p.getPravaStrana().get(m))) { //ked to je neterminal
-                        lavaStrana = p.getPravaStrana().get(m);    //tak budeme hladat pravidla kde na lavej strane je tento neterminal
-                        for (Pravidlo o : g.getPravidla()) {       //opat prehladavame pravidla
-                            if (o.getLavaStrana().get(0).equals(lavaStrana)) {
-                                System.out.println(lavaStrana);
-                                for (int n = (o.getPravaStrana().size()) - 1; n >= 0; n--) { //opat prehladame od konca pravu stranu najdeneho pravidla
-                                    if (g.getNeterminaly().contains(o.getPravaStrana().get(n))) { //ked je to neterminal
-                                        if (!vysledokfollow.get(o.getPravaStrana().get(n)).contains("epsilon")) {
-                                            vysledokfollow.get(o.getPravaStrana().get(n)).add("epsilon"); //tak do jeho follow mnoziny pridame epsilon
-                                            lavaStrana = o.getPravaStrana().get(n); //tento neterminal sa opat stane hladanou lavou stranou
+                        if (vysledokfirst.get(p.getPravaStrana().get(m)).contains("epsilon")) {
+                            lavaStrana = p.getPravaStrana().get(m);    //tak budeme hladat pravidla kde na lavej strane je tento neterminal
+                            for (Pravidlo o : g.getPravidla()) {       //opat prehladavame pravidla
+                                if (o.getLavaStrana().get(0).equals(lavaStrana)) {
+                                    for (int n = (o.getPravaStrana().size()) - 1; n >= 0; n--) { //opat prehladame od konca pravu stranu najdeneho pravidla
+                                        if (g.getNeterminaly().contains(o.getPravaStrana().get(n))) { //ked je to neterminal
+                                            if (!vysledokfollow.get(o.getPravaStrana().get(n)).contains("epsilon")) {
+                                                vysledokfollow.get(o.getPravaStrana().get(n)).add("epsilon"); //tak do jeho follow mnoziny pridame epsilon
+                                                lavaStrana = o.getPravaStrana().get(n); //tento neterminal sa opat stane hladanou lavou stranou
+                                            }
+                                        } else {
+                                            break; //ked sa na pozicii n nachadza terminal, tak sa ukonci prehladavanie pravej strany
                                         }
-                                    } else {
-                                        break; //ked sa na pozicii n nachadza terminal, tak sa ukonci prehladavanie pravej strany
                                     }
                                 }
                             }
+                        }
+                        else {
+                            break; //ked mnozina first neobsahuje epsilon prehladavanie pravej strany sa skonci
                         }
                     }
                     else {

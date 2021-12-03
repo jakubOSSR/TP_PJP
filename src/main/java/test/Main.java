@@ -16,21 +16,22 @@ public class Main {
 
 
 
-
-        HashSet<String> neterminaly =new HashSet<>(Arrays.asList("program","prikazy","prikaz"));
-        HashSet<String> terminaly =new HashSet<>(Arrays.asList("begin","end", "$", ";", "p"));
-        String zaciatocnySymbol = "program";
+        HashSet<String> neterminaly =new HashSet<>(Arrays.asList("S","A","B", "D"));
+        HashSet<String> terminaly =new HashSet<>(Arrays.asList("a","b", "c"));
+        String zaciatocnySymbol = "S";
         FirstAFollow firstAFollow = new FirstAFollow();
 
 
-        Pravidlo pravidlo1 = new Pravidlo(new ArrayList<>(Arrays.asList("program")), new ArrayList<>(Arrays.asList("begin","prikazy","end","$")));
-        Pravidlo pravidlo2 = new Pravidlo(new ArrayList<>(Arrays.asList("prikazy")), new ArrayList<>(Arrays.asList("prikaz",";", "prikazy")));
-        Pravidlo pravidlo3 = new Pravidlo(new ArrayList<>(Arrays.asList("prikazy")), new ArrayList<>(Arrays.asList("epsilon")));
-        Pravidlo pravidlo4 = new Pravidlo(new ArrayList<>(Arrays.asList("prikaz")), new ArrayList<>(Arrays.asList("p")));
-        LinkedHashSet<Pravidlo> pravidla = new LinkedHashSet<>(Arrays.asList(pravidlo1, pravidlo2, pravidlo3, pravidlo4));
+        Pravidlo pravidlo1 = new Pravidlo(new ArrayList<>(Arrays.asList("S")), new ArrayList<>(Arrays.asList("a","A","D","B")));
+        Pravidlo pravidlo2 = new Pravidlo(new ArrayList<>(Arrays.asList("S")), new ArrayList<>(Arrays.asList("a","b")));
+        Pravidlo pravidlo3 = new Pravidlo(new ArrayList<>(Arrays.asList("A")), new ArrayList<>(Arrays.asList("B","c")));
+        Pravidlo pravidlo4 = new Pravidlo(new ArrayList<>(Arrays.asList("A")), new ArrayList<>(Arrays.asList("a","A")));
+        Pravidlo pravidlo5 = new Pravidlo(new ArrayList<>(Arrays.asList("B")), new ArrayList<>(Arrays.asList("b","B")));
+        Pravidlo pravidlo6 = new Pravidlo(new ArrayList<>(Arrays.asList("B")), new ArrayList<>(Arrays.asList("epsilon")));
+        Pravidlo pravidlo7 = new Pravidlo(new ArrayList<>(Arrays.asList("D")), new ArrayList<>(Arrays.asList("a")));
+        LinkedHashSet<Pravidlo> pravidla = new LinkedHashSet<>(Arrays.asList(pravidlo1, pravidlo2, pravidlo3, pravidlo4, pravidlo5, pravidlo6,pravidlo7));
         BezkontextovaGramatika g = new BezkontextovaGramatika(terminaly,neterminaly,zaciatocnySymbol,pravidla);
         firstAFollow.follow(g);
-
 
     }}
 
