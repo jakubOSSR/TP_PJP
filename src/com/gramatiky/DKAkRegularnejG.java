@@ -11,23 +11,21 @@ import java.util.Iterator;
 
 public class DKAkRegularnejG {
 
-    private HashSet<String> symboly;
-    private HashSet<String> stavyDKA;
-
+    public HashSet<String> akceptujuciStavDKAkRG;
+    public HashSet<String> stavyDKAkRG;
+    public HashSet<String> symbolyDKAkRG;
+    public String zaciatocnyStavDKAkRG;
+    public Tabulka tabulkaDKAkRG;
     public DKAkRegularnejG(HashSet<String> terminaly, HashSet<String> neterminaly, String zaciatocnySymbol, LinkedHashSet<Pravidlo> pravidla) throws Exception {
-        this.stavyDKA = neterminaly;
-        this.symboly = terminaly;
-        HashSet<String> akceptujuciStavDKA = new HashSet<>();
+       HashSet<String> akceptujuciStav = new HashSet<>();
         Tabulka tabulka;
         tabulka = new Tabulka();
-        HashSet<String>zaciatocnyStavDKA = new HashSet<>();
-        zaciatocnyStavDKA.add(zaciatocnySymbol);
         int i = 1;
         for (Pravidlo p : pravidla) {
             if (p.getPravaStrana().size() == 1) {
                 if (terminaly.contains(p.getPravaStrana().get(0))) {
-                    akceptujuciStavDKA.add("qf" + i);
-                    for (String c : akceptujuciStavDKA) {
+                    akceptujuciStav.add("qf" + i);
+                    for (String c : akceptujuciStav) {
 
                         if (c.contains("qf" + i)) {
                             tabulka.pridajRiadok(p.getLavaStrana().get(0), p.getPravaStrana().get(0), c);
@@ -37,6 +35,7 @@ public class DKAkRegularnejG {
                     i++;
                 }
             }
+
             if (p.getPravaStrana().size() == 2) {
                 if (terminaly.contains(p.getPravaStrana().get(0)) & neterminaly.contains(p.getPravaStrana().get(1))) {
 
@@ -46,13 +45,20 @@ public class DKAkRegularnejG {
             }
 
         }
-        System.out.println(i);
-        System.out.println(stavyDKA);
-        System.out.println(symboly);
-        System.out.println(zaciatocnyStavDKA);
-
+        this.akceptujuciStavDKAkRG=akceptujuciStav;
+        this.zaciatocnyStavDKAkRG = zaciatocnySymbol;
+        this.tabulkaDKAkRG=tabulka;
+        this.stavyDKAkRG=neterminaly;
+        this.symbolyDKAkRG=terminaly;
         tabulka.vypisTabulku();
+        System.out.println(akceptujuciStavDKAkRG);
+        System.out.println(zaciatocnyStavDKAkRG);
     }
+    public HashSet<String> vratAkceptujuceStavyDKAkRG(){return akceptujuciStavDKAkRG;}
+    public HashSet<String> vratStavyDKAkRG(){return stavyDKAkRG;}
+    public HashSet<String> vratSymbolyDKAkRG(){return symbolyDKAkRG;}
+    public String vratZaciatocnySymbolDKAkRG(){return zaciatocnyStavDKAkRG;}
+    public Tabulka tabulkaDKAkRG(){return tabulkaDKAkRG;}
 
 }
 
