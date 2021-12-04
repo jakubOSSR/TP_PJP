@@ -23,20 +23,43 @@ public class classToRemove {
         stavyNKA.add("q1");
         stavyNKA.add("q2");
         //naplnenie Symbolov NKA
-        symbolyNKA.add("0");
-        symbolyNKA.add("1");
+        symbolyNKA.add("a");
+        symbolyNKA.add("b");
         //naplnenie Akceptujucich NKA
-       akceptujuciStavNKA.add("q2");
+       akceptujuciStavNKA.add("q1");
         //najplnenie Zaciatocnych NKA
        zaciatocnyStavNKA.add("q0");
         //naplnenie prechodovej tabulky NKA
         prechodovaNKA = new Tabulka();
+        /*
+        //PRIKLAD 1
         prechodovaNKA.pridajRiadok("q0","0","q0");
         prechodovaNKA.pridajRiadok("q0","1","q1");
         prechodovaNKA.pridajRiadok("q1","0","q1","q2");
         prechodovaNKA.pridajRiadok("q1","1","q1");
         prechodovaNKA.pridajRiadok("q2","0","q2");
         prechodovaNKA.pridajRiadok("q2","1","q1","q2");
+         //PRIKLAD 2
+        prechodovaNKA.pridajRiadok("q0","0","q0","q1");
+        prechodovaNKA.pridajRiadok("q0","1","q1");
+        prechodovaNKA.pridajRiadok("q1","1","q0","q1");
+        //PRIKLAD 3
+        prechodovaNKA.pridajRiadok("q0","a","q0");
+        prechodovaNKA.pridajRiadok("q0","b","q0","q1");
+        prechodovaNKA.pridajRiadok("q1","b","q2");
+        //PRIKLAD 4
+        prechodovaNKA.pridajRiadok("q0","0","q0");
+        prechodovaNKA.pridajRiadok("q0","1","q1","q2");
+        prechodovaNKA.pridajRiadok("q1","0","q1","q2");
+        prechodovaNKA.pridajRiadok("q1","1","q2");
+        prechodovaNKA.pridajRiadok("q2","0","q0","q1");
+        prechodovaNKA.pridajRiadok("q2","1","q1");
+        */
+        //PRIKLAD 5
+        prechodovaNKA.pridajRiadok("q0","a","q1","q2");
+        prechodovaNKA.pridajRiadok("q2","a","q1","q2");
+        prechodovaNKA.pridajRiadok("q2","b","q2");
+
         NedeterministickyKonecnyAutomat nka = new NedeterministickyKonecnyAutomat(stavyNKA,symbolyNKA,zaciatocnyStavNKA,akceptujuciStavNKA,prechodovaNKA);
 
 
