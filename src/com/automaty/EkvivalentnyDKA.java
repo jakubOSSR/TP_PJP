@@ -14,19 +14,24 @@ public class EkvivalentnyDKA {
     private HashSet<String> eZaciatocnyStav;
     //pomocne
     private HashMap<String, HashMap<String, HashSet<String>>> tabulkaNKA;
-    private HashMap<String, HashMap<String, HashSet<String>>> tab1;
     private HashMap<String, HashMap<String, HashSet<String>>> riadok1;
     private HashMap<String, HashMap<String, HashSet<String>>> vyslednaTab = new HashMap<String, HashMap<String, HashSet<String>>>();
-    private HashMap<String, HashMap<String, HashSet<String>>> kopiaVyslednaTab = new HashMap<String, HashMap<String, HashSet<String>>>();
     private HashMap<String, HashMap<String, HashSet<String>>> ePomocnaPrechodova = new HashMap<String, HashMap<String, HashSet<String>>>();
     private Tabulka pomocnaPrechodova;
     private Tabulka riadok;
     private HashSet<String> novyStav;
-    private int k = 0;
+    private HashMap<String,HashSet<String>> uzaverStavy = new HashMap<String,HashSet<String>>();
+    private HashSet<String> uzaverMnozina;
+    private HashMap<String,HashSet<String>> pravidlo;
+    private HashSet<String> naslStavy;
+    private boolean jeEpsilon = false;
+    private int krok =0;
+
 
     public EkvivalentnyDKA(NedeterministickyKonecnyAutomat nedeterministickyKA) {
         this.eSymboly = nedeterministickyKA.vratSymbolyAut();
         this.eZaciatocnyStav = nedeterministickyKA.vratZacStavNKA();
+
         pomocnaPrechodova = nedeterministickyKA.vratTabulkuNKA();
         tabulkaNKA = pomocnaPrechodova.vratPrechodovuTabulku();
 
@@ -39,46 +44,53 @@ public class EkvivalentnyDKA {
             }
         }
         eStavy.add(eZaciatocnyStav.toString());
-        System.out.println("--------NKA TABULKA--------");
-        pomocnaPrechodova.vypisTabulku();
-        System.out.println("______PARAMETRE DKA______");
-        ePrechodovaDKA.vypisTabulku();
         ePomocnaPrechodova = ePrechodovaDKA.vratPrechodovuTabulku();
+        vyslednaTab.putAll(ePomocnaPrechodova);
+        uzaverEps(tabulkaNKA);
+        System.out.println("Uzaver STAVY");
+        for (Map.Entry<String, HashSet<String>> m1 : uzaverStavy.entrySet()) {
+            System.out.println(m1.getKey()+"    "+m1.getValue());
+        }
         najdiNovyStav(ePomocnaPrechodova);
-        System.out.println("STAVY SU:" + eStavy);
         upravTabulku(vyslednaTab);
+        System.out.print("Prechodova tabulka ekv. DKA\n");
         ePrechodovaDKAFinal.vypisTabulku();
+        System.out.println("STAVY SU:" + eStavy);
 
     }
-
     public void najdiNovyStav(HashMap<String, HashMap<String, HashSet<String>>> tabulka) {
         novyStav = new HashSet<String>();
         for (Map.Entry<String, HashMap<String, HashSet<String>>> m1 : tabulka.entrySet()) {
             for (Map.Entry<String, HashSet<String>> m2 : m1.getValue().entrySet()) {
                 if (!eStavy.contains(m2.getValue().toString())) {
+                    novyStav=new HashSet<String>();
                     novyStav.addAll(m2.getValue());
                 }
             }
         }
-        System.out.println("NOVY STAV JE: " + novyStav);
         if (!novyStav.isEmpty()) {
             riadok = new Tabulka();
+            pravidlo= new HashMap<String,HashSet<String>>();
             for (Map.Entry<String, HashMap<String, HashSet<String>>> m1 : tabulkaNKA.entrySet()) {
                 for (Map.Entry<String, HashSet<String>> m2 : m1.getValue().entrySet()) {
                     if (novyStav.contains(m1.getKey())) {
-                        riadok.pridajRiadokPreZS(novyStav.toString(), m2.getKey(), m2.getValue());
-                        riadok.vypisTabulku();
+                        if(pravidlo.containsKey(m2.getKey())){
+                            naslStavy=new HashSet<String>();
+                            naslStavy.addAll(pravidlo.get(m2.getKey()));
+                            naslStavy.addAll(m2.getValue());
+                            pravidlo.put(m2.getKey(),naslStavy);
+                        }
+                        else{
+                            pravidlo.putAll(m1.getValue());
+                        }
+
                     }
                 }
             }
+            riadok.pridajRiadokPreZS(novyStav.toString(),pravidlo);
             eStavy.add(novyStav.toString());
-            tab1 = ePrechodovaDKA.vratPrechodovuTabulku();
             riadok1 = riadok.vratPrechodovuTabulku();
-            vyslednaTab.putAll(tab1);
             vyslednaTab.putAll(riadok1);
-            System.out.println("xxxxxxxxx");
-            System.out.println(vyslednaTab);
-            System.out.println("xxxxxxxxxx");
             najdiNovyStav(vyslednaTab);
 
         }
@@ -103,38 +115,26 @@ public class EkvivalentnyDKA {
             }
         }
     }
-}
-   /* public void upravTabulku(HashMap<String, HashMap<String,HashSet<String>>> tabulka) {
-        for (Map.Entry<String, HashMap<String, HashSet<String>>> m1 : tabulka.entrySet()) {
+
+    public void uzaverEps(HashMap<String, HashMap<String, HashSet<String>>> tabulka){
+        for (Map.Entry<String, HashMap<String, HashSet<String>>> m1 : tabulkaNKA.entrySet()) {
             for (Map.Entry<String, HashSet<String>> m2 : m1.getValue().entrySet()) {
-                if (m1.getKey().length() > 2) {
-                    ePrechodovaDKAFinal.pridajRiadok(m1.getKey().toString().replace(", ", "")
-                                    .replace("[", "")
-                                    .replace("]", ""),
-                            m2.getKey(), m2.getValue().toString().replace(", ", "")
-                                    .replace("[", "")
-                                    .replace("]", ""));
-                } else {
-                    ePrechodovaDKAFinal.pridajRiadok(m1.getKey().toString(), m2.getKey(), m2.getValue().toString()
-                            .replace(", ", "")
-                            .replace("[", "")
-                            .replace("]", ""));
+                if(m2.getKey().equals("epsilon")){
+                    uzaverMnozina = new HashSet<String>();
+                    uzaverMnozina.add(m1.getKey());
+                    uzaverMnozina.add(m2.getValue().toString());
+                    uzaverStavy.put(m1.getKey(),uzaverMnozina);
+
                 }
             }
         }
 
-        vyslednaTab = ePrechodovaDKAFinal.vratPrechodovuTabulku();
-        pomocnaTabulka.putAll(tabulka);
-        System.out.println("DKA NOVA");
-        for (Map.Entry<String, HashMap<String, HashSet<String>>> s : vyslednaTab.entrySet()) {
-            System.out.println(s.getKey() + " : " + s.getValue().toString());
-        }
+    }
 
+}
 
-    } */
-
-/*
- public class EkvivalentnyDKA {
+   /*
+public class EkvivalentnyDKA {
     private HashSet<String> eStavy = new HashSet<String>();
     private HashSet<String> eSymboly;
     private HashSet<String> eAkceptujuceStavy;
@@ -142,85 +142,84 @@ public class EkvivalentnyDKA {
     private Tabulka ePrechodovaDKAFinal = new Tabulka();
     private HashSet<String> eZaciatocnyStav;
     //pomocne
-    private HashMap<String, HashMap<String,HashSet<String>>> pomocnaTabulka;
-    private HashMap<String, HashMap<String,HashSet<String>>> tab1;
-    private HashMap<String, HashMap<String,HashSet<String>>> riadok1;
-    private HashMap<String, HashMap<String,HashSet<String>>> vyslednaTab = new HashMap<String, HashMap<String,HashSet<String>>>();
-    private HashMap<String, HashMap<String,HashSet<String>>> kopiaVyslednaTab = new HashMap<String, HashMap<String,HashSet<String>>>();
+    private HashMap<String, HashMap<String, HashSet<String>>> tabulkaNKA;
+    private HashMap<String, HashMap<String, HashSet<String>>> tab1;
+    private HashMap<String, HashMap<String, HashSet<String>>> riadok1;
+    private HashMap<String, HashMap<String, HashSet<String>>> vyslednaTab = new HashMap<String, HashMap<String, HashSet<String>>>();
+    private HashMap<String, HashMap<String, HashSet<String>>> ePomocnaPrechodova = new HashMap<String, HashMap<String, HashSet<String>>>();
     private Tabulka pomocnaPrechodova;
     private Tabulka riadok;
-    private ArrayList<String> noveStavy;
-    private int k = 0;
+    private HashSet<String> novyStav;
+    private HashMap<String,HashSet<String>> uzaverStavy = new HashMap<String,HashSet<String>>();
+    private HashSet<String> uzaverMnozina;
+    private boolean jeEpsilon = false;
+    private int krok =0;
 
-    public EkvivalentnyDKA(NedeterministickyKonecnyAutomat nedeterministickyKA){
+
+    public EkvivalentnyDKA(NedeterministickyKonecnyAutomat nedeterministickyKA) {
         this.eSymboly = nedeterministickyKA.vratSymbolyAut();
         this.eZaciatocnyStav = nedeterministickyKA.vratZacStavNKA();
-        pomocnaPrechodova=nedeterministickyKA.vratTabulkuNKA();
-        pomocnaTabulka= pomocnaPrechodova.vratPrechodovuTabulku();
 
-        for(Map.Entry<String,HashMap<String,HashSet<String>>> m1 : pomocnaTabulka.entrySet()){
-            for(Map.Entry<String,HashSet<String>> m2 : m1.getValue().entrySet()){
-                if(m1.getKey().equals(eZaciatocnyStav.toString().replace("[","")
-                        .replace("]",""))) {
+        pomocnaPrechodova = nedeterministickyKA.vratTabulkuNKA();
+        tabulkaNKA = pomocnaPrechodova.vratPrechodovuTabulku();
+
+        for (Map.Entry<String, HashMap<String, HashSet<String>>> m1 : tabulkaNKA.entrySet()) {
+            for (Map.Entry<String, HashSet<String>> m2 : m1.getValue().entrySet()) {
+                if (m1.getKey().equals(eZaciatocnyStav.toString().replace("[", "")
+                        .replace("]", ""))) {
                     ePrechodovaDKA.pridajRiadok(m1.getKey(), m2.getKey(), m2.getValue().toArray(new String[0]));
-                    eStavy.add(m1.getKey());
                 }
             }
         }
+        eStavy.add(eZaciatocnyStav.toString());
+        ePomocnaPrechodova = ePrechodovaDKA.vratPrechodovuTabulku();
+        vyslednaTab.putAll(ePomocnaPrechodova);
+        uzaverEps(tabulkaNKA);
+        System.out.println("Uzaver STAVY");
+        for (Map.Entry<String, HashSet<String>> m1 : uzaverStavy.entrySet()) {
+            System.out.println(m1.getKey()+"    "+m1.getValue());
+        }
+        najdiNovyStav(ePomocnaPrechodova);
+        //upravTabulku(vyslednaTab);
+       // System.out.print("Prechodova tabulka ekv. DKA\n");
+        //ePrechodovaDKAFinal.vypisTabulku();
+        //System.out.println("STAVY SU:" + eStavy);
 
-        najdiNovyStav(pomocnaTabulka);
-         //System.out.println("DKA JE");
-         //ePrechodovaDKAFinal.vypisTabulku();
     }
-    public void najdiNovyStav(HashMap<String, HashMap<String,HashSet<String>>> tabulka){
-        noveStavy= new ArrayList<String>();
-        for(Map.Entry<String,HashMap<String,HashSet<String>>> m1 : tabulka.entrySet()){
-            for(Map.Entry<String,HashSet<String>> m2 : m1.getValue().entrySet()){
-                if(!eStavy.contains(m2.getValue().toString().replace("[","").replace("]",""))){
-                    eStavy.add(m2.getValue().toString().replace("[","")
-                            .replace("]","")
-                            .replace(", ",""));
-                    if(!noveStavy.contains(m2.getValue().toString())) {
-                        noveStavy.add(m2.getValue().toString());
-
-                    }
+    public void najdiNovyStav(HashMap<String, HashMap<String, HashSet<String>>> tabulka) {
+        novyStav = new HashSet<String>();
+        for (Map.Entry<String, HashMap<String, HashSet<String>>> m1 : tabulka.entrySet()) {
+            for (Map.Entry<String, HashSet<String>> m2 : m1.getValue().entrySet()) {
+                if (!eStavy.contains(m2.getValue().toString())) {
+                    novyStav=new HashSet<String>();
+                    novyStav.addAll(m2.getValue());
                 }
             }
         }
-        System.out.println("eStavy: "+eStavy+" noveStavy:"+noveStavy);
-        if(!noveStavy.isEmpty()){
-            for(int i=0;i< noveStavy.size();i++) {
-                k=i;
-                String s = noveStavy.get(i);
-                pridajNovyStav(tabulka, s);
-            }
-        }
-
-    }
-    public void pridajNovyStav(HashMap<String, HashMap<String,HashSet<String>>> tabulka, String ns){
-        riadok = new Tabulka();
-        for(Map.Entry<String,HashMap<String,HashSet<String>>> m1 : tabulka.entrySet()){
+        if (!novyStav.isEmpty()) {
+            riadok = new Tabulka();
+            for (Map.Entry<String, HashMap<String, HashSet<String>>> m1 : tabulkaNKA.entrySet()) {
                 for (Map.Entry<String, HashSet<String>> m2 : m1.getValue().entrySet()) {
-                    if(ns.contains(m1.getKey())){
-                        riadok.pridajRiadokPreZS(ns, m2.getKey(),m2.getValue().toString().replace("[","")
-                                .replace("]",""));
+                    if (novyStav.contains(m1.getKey())) {
+                        riadok.pridajRiadokPreZS(novyStav.toString(), m2.getKey(), m2.getValue());
                         riadok.vypisTabulku();
-                    }
 
+                    }
                 }
+            }
+            eStavy.add(novyStav.toString());
+            riadok1 = riadok.vratPrechodovuTabulku();
+            vyslednaTab.putAll(riadok1);
+            System.out.println("PO KROKOCH DKA");
+            for (Map.Entry<String, HashMap<String,HashSet<String>>> m1 : vyslednaTab.entrySet()) {
+                System.out.println(m1.getKey()+"    "+m1.getValue());
+            }
+            najdiNovyStav(vyslednaTab);
 
         }
-        tab1 = ePrechodovaDKA.vratPrechodovuTabulku();
-        riadok1 = riadok.vratPrechodovuTabulku();
-        vyslednaTab.putAll(tab1);
-        vyslednaTab.putAll(riadok1);
-        kopiaVyslednaTab.putAll(vyslednaTab);
-    if(k == (noveStavy.size()-1)) {
-        upravTabulku(kopiaVyslednaTab);
     }
 
-    }
-    public void upravTabulku(HashMap<String, HashMap<String,HashSet<String>>> tabulka) {
+    public void upravTabulku(HashMap<String, HashMap<String, HashSet<String>>> tabulka) {
         for (Map.Entry<String, HashMap<String, HashSet<String>>> m1 : tabulka.entrySet()) {
             for (Map.Entry<String, HashSet<String>> m2 : m1.getValue().entrySet()) {
                 if (m1.getKey().length() > 2) {
@@ -238,15 +237,23 @@ public class EkvivalentnyDKA {
                 }
             }
         }
+    }
 
-        vyslednaTab = ePrechodovaDKAFinal.vratPrechodovuTabulku();
-        pomocnaTabulka.putAll(tabulka);
-        System.out.println("DKA NOVA");
-        for (Map.Entry<String, HashMap<String, HashSet<String>>> s : vyslednaTab.entrySet()) {
-            System.out.println(s.getKey() + " : " + s.getValue().toString());
+    public void uzaverEps(HashMap<String, HashMap<String, HashSet<String>>> tabulka){
+        for (Map.Entry<String, HashMap<String, HashSet<String>>> m1 : tabulkaNKA.entrySet()) {
+            for (Map.Entry<String, HashSet<String>> m2 : m1.getValue().entrySet()) {
+                if(m2.getKey().equals("epsilon")){
+                    uzaverMnozina = new HashSet<String>();
+                    uzaverMnozina.add(m1.getKey());
+                    uzaverMnozina.add(m2.getValue().toString());
+                    uzaverStavy.put(m1.getKey(),uzaverMnozina);
+
+                }
+            }
         }
-        //najdiNovyStav(pomocnaTabulka);
 
     }
+
 }
+
  */

@@ -42,23 +42,8 @@ public class Tabulka {
             prechodovaTabulka.put(stav, pravidla);
         }
     }
-    public void pridajRiadokPreZS(String aktStav, String symbol, HashSet<String> naslStav){
-        System.out.println("Aktualny stav: "+aktStav+" symbol: "+symbol+" nasledujuci stav: "+naslStav);
-        if(prechodovaTabulka.containsKey(aktStav)){
-            if(pravidla1.containsKey(symbol)){
-                vratNachadzajuciSaStav(symbol,aktStav);
-                naslStav.addAll(nasledujuciStav1);
-                prechodovaTabulka.get(aktStav).put(symbol,naslStav);
-            }
-            else{
-                prechodovaTabulka.get(aktStav).put(symbol,naslStav);
-            }
-        }
-        else{
-            pravidla1 = new HashMap<String,HashSet<String>>();
-            pravidla1.put(symbol,naslStav);
-            prechodovaTabulka.put(aktStav,pravidla1);
-        }
+    public void pridajRiadokPreZS(String aktStav, HashMap<String,HashSet<String>> mnozina){
+        prechodovaTabulka.put(aktStav,mnozina);
     }
     public void vratNachadzajuciSaStav(String sym,String aktualS){
        nasledujuciStav1 = new HashSet<String>();
@@ -100,27 +85,20 @@ public class Tabulka {
 
 }
 /*
-  public void pridajRiadokPreZS(String aktStav, String symbol, String naslStav){
-        String s = aktStav.toString().replace("[","").replace("]","");
-        nasledujuciStav1=new HashSet<String>();
-        nasledujuciStav1.add(naslStav);
-        if(prechodovaTabulka.containsKey(s)){
+ public void pridajRiadokPreZS(String aktStav, String symbol, HashSet<String> naslStav){
+        if(prechodovaTabulka.containsKey(aktStav)){
             if(pravidla1.containsKey(symbol)){
-                if(obsahujeNaslStav(naslStav,symbol,s) == false){
-                   if(!nasledujuciStav1.toString().contains(pomocnaNaslStav.toString().replace("[","").replace("]",""))){
-                       nasledujuciStav1.addAll(pomocnaNaslStav);
-                   }
-                    prechodovaTabulka.get(s).put(symbol,nasledujuciStav1);
-                }
+                naslStav.addAll(pravidla1.get(symbol));
+                prechodovaTabulka.get(aktStav).put(symbol,naslStav);
             }
             else{
-                prechodovaTabulka.get(s).put(symbol,nasledujuciStav1);
+                prechodovaTabulka.get(aktStav).put(symbol,naslStav);
             }
         }
         else{
-            pravidla1=new HashMap<String,HashSet<String>>();
-            pravidla1.put(symbol,nasledujuciStav1);
-            prechodovaTabulka.put(s,pravidla1);
+            pravidla1 = new HashMap<String,HashSet<String>>();
+            pravidla1.put(symbol,naslStav);
+            prechodovaTabulka.put(aktStav,pravidla1);
         }
     }
  */

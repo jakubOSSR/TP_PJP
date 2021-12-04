@@ -22,8 +22,8 @@ public class NedeterministickyKonecnyAutomat {
         this.zaciatocnyStavNKA = zaciatocnyStavNKA;
         this.akceptujuciStavNKA = akceptujuciStavNKA;
         this.prechodovaTabulkaNKA = prechodovaTabulkaNKA;
-        //System.out.print("Prechodova tabulka NKA\n");
-        //prechodovaTabulkaNKA.vypisTabulku();
+        System.out.print("Prechodova tabulka NKA\n");
+        prechodovaTabulkaNKA.vypisTabulku();
 
 
         //overovania stavov
