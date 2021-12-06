@@ -41,6 +41,8 @@ public class classToRemove {
         prechodovaNKA.pridajRiadok("q1","1","q1");
         prechodovaNKA.pridajRiadok("q2","0","q2");
         prechodovaNKA.pridajRiadok("q2","1","q1","q2");
+        */
+        /*
          //PRIKLAD 2
         prechodovaNKA.pridajRiadok("q0","0","q0","q1");
         prechodovaNKA.pridajRiadok("q0","1","q1");
@@ -56,6 +58,8 @@ public class classToRemove {
         prechodovaNKA.pridajRiadok("q2","1","q2","qf");
         prechodovaNKA.pridajRiadok("q3","0","q3");
         prechodovaNKA.pridajRiadok("q3","epsilon","qf");
+
+
         /*
         //PRIKLAD 4
         prechodovaNKA.pridajRiadok("q0","0","q0");
@@ -70,8 +74,8 @@ public class classToRemove {
         prechodovaNKA.pridajRiadok("q0","a","q1","q2");
         prechodovaNKA.pridajRiadok("q2","a","q1","q2");
         prechodovaNKA.pridajRiadok("q2","b","q2");
+        */
 
-         */
 
         NedeterministickyKonecnyAutomat nka = new NedeterministickyKonecnyAutomat(stavyNKA,symbolyNKA,zaciatocnyStavNKA,akceptujuciStavNKA,prechodovaNKA);
 

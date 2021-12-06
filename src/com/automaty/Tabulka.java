@@ -84,21 +84,3 @@ public class Tabulka {
     }
 
 }
-/*
- public void pridajRiadokPreZS(String aktStav, String symbol, HashSet<String> naslStav){
-        if(prechodovaTabulka.containsKey(aktStav)){
-            if(pravidla1.containsKey(symbol)){
-                naslStav.addAll(pravidla1.get(symbol));
-                prechodovaTabulka.get(aktStav).put(symbol,naslStav);
-            }
-            else{
-                prechodovaTabulka.get(aktStav).put(symbol,naslStav);
-            }
-        }
-        else{
-            pravidla1 = new HashMap<String,HashSet<String>>();
-            pravidla1.put(symbol,naslStav);
-            prechodovaTabulka.put(aktStav,pravidla1);
-        }
-    }
- */
