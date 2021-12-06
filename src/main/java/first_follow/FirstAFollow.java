@@ -29,13 +29,13 @@ public class FirstAFollow {
         }
         //Riesenie pravidiel tvaru A->epsilon, kedy "epsilon" patri do First(A)
         for (Pravidlo p : g.getPravidla()) {
-            if (p.getPravaStrana().get(0) == "epsilon") {       //Ak je na pravej strane "epsilon",
+            if (p.getPravaStrana().get(0).equals("epsilon")) {       //Ak je na pravej strane "epsilon",
                 vysledokfirst.get(p.getLavaStrana().get(0)).add("epsilon");   //prida sa do First neterminalu na lavej strane
             }
         }
         //Riesenie pravidel tvaru A->Bα
         boolean zmena = true;
-        while (zmena == true) { //cyklus sa opakuje pokial sa do niektorej z First mnozin prida novy prvok
+        while (zmena) { //cyklus sa opakuje pokial sa do niektorej z First mnozin prida novy prvok
             zmena = false;
             for (Pravidlo p : g.getPravidla()) {
                 boolean jeepsilon = false;
@@ -50,7 +50,7 @@ public class FirstAFollow {
                             /*Ak mnozina first neterminalu na lavej strane pravidla uz obsahuje dany prvok mnoziny
                             first neterminalu na pravej strane, tak sa nevykona nic */
                         } else {                                                            //v opacnom pripade
-                            if (vysledokfirst.get(p.getPravaStrana().get(0)).get(i) == "epsilon") { //overime, ci dany prvok je epsilon
+                            if (vysledokfirst.get(p.getPravaStrana().get(0)).get(i).equals("epsilon")) { //overime, ci dany prvok je epsilon
                             /*Ak nie je epsilon, tak dany prvok pridame do mnoziny first neterminalu na lavej strane pravidla
                             a zaznamename, ze bola vykonana zmena (do first mnoziny bol pridany novy prvok) */
                             } else {
@@ -61,7 +61,7 @@ public class FirstAFollow {
                     }
                 }
                 for (int j = 1; j < p.getPravaStrana().size(); j++) { //prehladavame zvysne prvky pravej strany pravidla
-                    if (jeepsilon == true) {       // pre pripad, ze first mnozina predchadzajuceho neterminalu na pravej strane obsahuje epsilon
+                    if (jeepsilon) {       // pre pripad, ze first mnozina predchadzajuceho neterminalu na pravej strane obsahuje epsilon
                         if (g.getTerminaly().contains(p.getPravaStrana().get(j))) { //ak je nasledujuci prvok terminal
                             if (vysledokfirst.get(p.getLavaStrana().get(0)).contains(p.getPravaStrana().get(j))) {
 
@@ -80,7 +80,7 @@ public class FirstAFollow {
                                 if (vysledokfirst.get(p.getLavaStrana().get(0)).contains(vysledokfirst.get(p.getPravaStrana().get(j)).get(k))) {
 
                                 } else {                    // ak prvok z first mnoziny neterminalu este nieje v mnozine first neterminalu na lavej strane
-                                    if (vysledokfirst.get(p.getPravaStrana().get(0)).get(k) == "epsilon") {
+                                    if (vysledokfirst.get(p.getPravaStrana().get(0)).get(k).equals("epsilon")) {
 
                                     } else {                // a tento prvok nieje epsilon
                                         vysledokfirst.get(p.getLavaStrana().get(0)).add(vysledokfirst.get(p.getPravaStrana().get(j)).get(k)); //tak ho pridame do first mnoziny neterminalu na lavej strane
