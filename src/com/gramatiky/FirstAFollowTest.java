@@ -1,13 +1,11 @@
 package com.gramatiky;
 
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FirstAFollowTest {
     //vytvorenie množiny obsahujúcej terminály
