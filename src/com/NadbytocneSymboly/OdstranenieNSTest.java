@@ -35,7 +35,6 @@ public class OdstranenieNSTest {
 
         //pridanie pravidla, ktoré na lavej strane obsahuje neterminál, ktorý je nedostupným symbolom
         Pravidlo pravidlo11NSBG = new Pravidlo(new ArrayList<String>(Arrays.asList("<komentar>")), new ArrayList<String>(Arrays.asList("//","text")));
-
         //zoskupenie pravidiel do usporiadanej množiny
         LinkedHashSet<Pravidlo> pravidlaNSBG = new LinkedHashSet<Pravidlo>(Arrays.asList(pravidlo1NSBG, pravidlo2NSBG, pravidlo3NSBG, pravidlo4NSBG, pravidlo5NSBG, pravidlo6NSBG, pravidlo7NSBG, pravidlo8NSBG,pravidlo9NSBG,pravidlo10NSBG, pravidlo11NSBG ));
         //vytvorenie bezkontextovej gramatiky, ktorá by nemala vyhodiť výnimku
