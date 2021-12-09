@@ -1,10 +1,7 @@
-package first_follow;
-import com.gramatiky.BezkontextovaGramatika;
-import com.gramatiky.Pravidlo;
+package com.gramatiky;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class FirstAFollow {
     public static HashMap<String, ArrayList<String>> first(BezkontextovaGramatika g) {
@@ -93,7 +90,6 @@ public class FirstAFollow {
                 }
             }
         }
-        System.out.println(vysledokfirst);
         return vysledokfirst;
     }
     /*Hladanie mnozin Follow*/
@@ -242,7 +238,6 @@ public class FirstAFollow {
                 }
             }
         }
-        System.out.println(vysledokfollow);
         return vysledokfollow;
     }
 }
