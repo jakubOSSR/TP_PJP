@@ -1,7 +1,4 @@
-package com.NadbytocneSymboly;
-
-import com.gramatiky.BezkontextovaGramatika;
-import com.gramatiky.Pravidlo;
+package com.gramatiky;
 
 import java.util.ArrayList;
 import java.util.Arrays;
