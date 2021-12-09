@@ -134,6 +134,7 @@ public class OdstranenieNS {
                     }
                 }
             }
+
         }
 
         neterminalyRedukovana.clear();//vyprázdnenie množiny neterminálov RG
