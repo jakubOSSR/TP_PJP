@@ -5,19 +5,20 @@ import java.util.HashSet;
 
 
 public class DeterministickyKonecnyAutomat {
-
+    //deklarácia parametrov pre NKA
     private HashSet<String> stavyDKA;
     private HashSet<String> symboly;
     private HashSet<String> zaciatocnyStavDKA;
     private HashSet<String> akceptujuciStavDKA;
     private Tabulka prechodovaTabulkaDKA;
-
+    //pomocné premenné na určovanie toho, kedy vyhodiť výnimku a kedy nie
     private boolean jeDKA = true;
     private boolean nachadzajuSaStavy;
     private boolean nachadzajuSaSymboly;
     private boolean jeAkceptujuciStav;
     private boolean jeZaciatocnStav;
 
+    //konštruktor
     public DeterministickyKonecnyAutomat(HashSet<String> stavyDKA, HashSet<String> symboly,
                                          HashSet<String> zaciatocnyStavDKA, HashSet<String> akceptujuciStavDKA,
                                          Tabulka prechodovaTabulkaDKA) throws Exception{
@@ -26,9 +27,7 @@ public class DeterministickyKonecnyAutomat {
         this.zaciatocnyStavDKA=zaciatocnyStavDKA;
         this.akceptujuciStavDKA=akceptujuciStavDKA;
         this.prechodovaTabulkaDKA = prechodovaTabulkaDKA;
-        System.out.print("Prechodova tabulka DKA\n");
-        prechodovaTabulkaDKA.vypisTabulku();
-        //overenie DKA
+        //overenie DKA z pohľadu prechodu na epsilon a prechodu na rovnaký symbol do dvoch stavov
         if((prechodovaTabulkaDKA.overAutomat() > 1)){
             jeDKA = false;
         }
@@ -40,7 +39,7 @@ public class DeterministickyKonecnyAutomat {
                 }
             }
         }
-        //overenie stavov
+        //overenie toho, či sa stavy v tabuľke nachádzaju v množine stavov
         for(int i=0;i < prechodovaTabulkaDKA.overStavyVtabulke().length;i++)
         {
             if(stavyDKA.contains(prechodovaTabulkaDKA.overStavyVtabulke()[i])){
@@ -51,7 +50,7 @@ public class DeterministickyKonecnyAutomat {
                 break;
             }
         }
-        //overenie symbolov
+        //overenie toho, či sa symboly v tabulke nachádzaju v množine symbolov
         for(int i=0;i < prechodovaTabulkaDKA.vratSymbolyVTabulke().length;i++)
         {
             if(symboly.contains(prechodovaTabulkaDKA.vratSymbolyVTabulke()[i])){
@@ -62,7 +61,7 @@ public class DeterministickyKonecnyAutomat {
                 break;
             }
         }
-        //overenie zaciatocneho stavu
+        //overenie toho, či sa začiatočný stav nachádza v tabulke
         for(int i=0;i < prechodovaTabulkaDKA.vratZaciatocnyStav().length;i++)
         {
             if(zaciatocnyStavDKA.contains(prechodovaTabulkaDKA.vratZaciatocnyStav()[i])){
@@ -73,7 +72,7 @@ public class DeterministickyKonecnyAutomat {
                 jeZaciatocnStav=false;
             }
         }
-        //overenie akceptujuceho stavu
+        //overenie či sa akceptujúci stav nachádza v prechodovej tabulke
         for(int i=0;i < prechodovaTabulkaDKA.vratAkceptujuceStavy().length;i++)
         {
             if(akceptujuciStavDKA.contains(prechodovaTabulkaDKA.vratAkceptujuceStavy()[i])){
@@ -100,7 +99,15 @@ public class DeterministickyKonecnyAutomat {
         if(jeAkceptujuciStav==false){
             throw new Exception("V tabulke, DKA automatu, sa nenachadza akceptujúci stav-automat nikdy nič neakceptuje!");
         }
+
+        //výpis prechodovej tabulky DKA
+        System.out.print("________________Prechodova tabulka DKA_________________\n");
+        prechodovaTabulkaDKA.vypisTabulku();
+        System.out.print("_______________________________________________________\n");
+
     }
+
+    //metody, ktoré vracaju parametre DKA - množinu stavov, symbolov... ( get metody)
     public HashSet<String> vratStavyDKA(){
         return stavyDKA;
     }

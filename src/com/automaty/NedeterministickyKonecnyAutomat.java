@@ -3,17 +3,19 @@ package com.automaty;
 import java.util.*;
 
 public class NedeterministickyKonecnyAutomat {
+  //deklarácia parametrov NKA
     private HashSet<String> stavyNKA;
     private HashSet<String> symboly;
     private HashSet<String> zaciatocnyStavNKA;
     private HashSet<String> akceptujuciStavNKA;
     private Tabulka prechodovaTabulkaNKA;
-   //pomocne
+   //pomocne premenne na určenie toho, kedy výnimku vyhodiť a kedy nie
     private boolean nachadzajuSaStavy;
     private boolean nachadzajuSaSymboly;
     private boolean jeAkceptujuciStav;
     private boolean jeZaciatocnStav;
 
+    //konštrukor
     public NedeterministickyKonecnyAutomat(HashSet<String> stavyNKA, HashSet<String> symboly,
                                            HashSet<String> zaciatocnyStavNKA, HashSet<String> akceptujuciStavNKA,
                                            Tabulka prechodovaTabulkaNKA) throws Exception {
@@ -22,11 +24,9 @@ public class NedeterministickyKonecnyAutomat {
         this.zaciatocnyStavNKA = zaciatocnyStavNKA;
         this.akceptujuciStavNKA = akceptujuciStavNKA;
         this.prechodovaTabulkaNKA = prechodovaTabulkaNKA;
-        System.out.print("Prechodova tabulka NKA\n");
-        prechodovaTabulkaNKA.vypisTabulku();
 
 
-        //overovania stavov
+        //overovanie toho, či sa všetky stavy v tabuľke nachádzaju v množine stavov
         for(int i=0;i < prechodovaTabulkaNKA.overStavyVtabulke().length;i++)
         {
             if(stavyNKA.contains(prechodovaTabulkaNKA.overStavyVtabulke()[i])){
@@ -37,7 +37,7 @@ public class NedeterministickyKonecnyAutomat {
                 break;
             }
         }
-        //overovanie symbolov
+        //overovanie toho, či sa všetky symboly v tabulke nachádzajú v množine symbolov
         for(int i=0;i < prechodovaTabulkaNKA.vratSymbolyVTabulke().length;i++)
         {
             if(symboly.contains(prechodovaTabulkaNKA.vratSymbolyVTabulke()[i])){
@@ -53,7 +53,7 @@ public class NedeterministickyKonecnyAutomat {
                 }
             }
         }
-        //overenie zaciatocneho stavu
+        //overenie toho, či sa začiatočný stav nachádza v prechodovej tabulke
         for(int i=0;i < prechodovaTabulkaNKA.vratZaciatocnyStav().length;i++)
         {
             if(zaciatocnyStavNKA.contains(prechodovaTabulkaNKA.vratZaciatocnyStav()[i])){
@@ -64,7 +64,7 @@ public class NedeterministickyKonecnyAutomat {
                 jeZaciatocnStav=false;
             }
         }
-        //overenie akceptujuceho stavu
+        //overenie toho či sa akceptujúci stav nachádza v prechodovej tabulke
         for(int i=0;i < prechodovaTabulkaNKA.vratAkceptujuceStavy().length;i++)
         {
             if(akceptujuciStavNKA.contains(prechodovaTabulkaNKA.vratAkceptujuceStavy()[i])){
@@ -90,9 +90,13 @@ public class NedeterministickyKonecnyAutomat {
             throw new Exception("V tabulke, NKA automatu, sa nenachadza akceptujúci stav-automat nikdy nič neakceptuje!");
         }
 
+        //vypis prechodovej tabulky NKA
+        System.out.print("_______________Prechodova tabulka NKA__________________\n");
+        prechodovaTabulkaNKA.vypisTabulku();
+        System.out.print("_______________________________________________________\n");
 
     }
-
+    // v podstate get metody, ktoré vracaju množiny - stavov,symbolov ...
     public HashSet<String> vratStavyNKA(){
         return stavyNKA;
     }

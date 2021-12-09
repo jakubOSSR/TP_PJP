@@ -17,18 +17,29 @@ public class DeterministickyKonecnyAutomatTest {
     private static DeterministickyKonecnyAutomat dka;
 
     @BeforeAll
-    static void naplnenieParametrovDKA() throws Exception{
-        stavyDKA=new HashSet<String>(Arrays.asList("q0","q1","qf"));
-        symbolyDKA=new HashSet<String>(Arrays.asList("0","1"));
-        akceptujuciStavDKA=new HashSet<String>(Arrays.asList("qf"));
-        zaciatocnyStavDKA=new HashSet<String>(Arrays.asList("q0"));
-        prechodovaDKA=new Tabulka();
-        prechodovaDKA.pridajRiadok("q0","0","q0");
-        prechodovaDKA.pridajRiadok("q0","1","q1");
-        prechodovaDKA.pridajRiadok("q1","0","qf");
-        prechodovaDKA.pridajRiadok("q1","1","q1");
-        prechodovaDKA.pridajRiadok("qf","0","qf");
-        prechodovaDKA.pridajRiadok("qf","1","qf");
+    static void naplnenieParametrovDKA(){
+        stavyDKA = new HashSet<String>(Arrays.asList("q0","q1q0","q2q0","q1q3qfq0","q1q2q0","q2qfq0","q1q2q3qfq0","q1q2qfq0"));
+        symbolyDKA = new HashSet<String>(Arrays.asList("0","1"));
+        akceptujuciStavDKA = new HashSet<String>(Arrays.asList("q1q3qfq0","q2qfq0","q1q2q3qfq0","q1q2qfq0"));
+        zaciatocnyStavDKA = new HashSet<String>(Arrays.asList("q0"));
+
+        prechodovaDKA = new Tabulka();
+        prechodovaDKA.pridajRiadok("q0","0","q1q0");
+        prechodovaDKA.pridajRiadok("q0","1","q2q0");
+        prechodovaDKA.pridajRiadok("q1q0","0","q1q3qfq0");
+        prechodovaDKA.pridajRiadok("q1q0","1","q1q2q0");
+        prechodovaDKA.pridajRiadok("q2q0","0","q1q2q0");
+        prechodovaDKA.pridajRiadok("q2q0","1","q2qfq0");
+        prechodovaDKA.pridajRiadok("q1q3qfq0","0","q1q3qfq0");
+        prechodovaDKA.pridajRiadok("q1q3qfq0","1","q1q2q0");
+        prechodovaDKA.pridajRiadok("q1q2q0","0","q1q2q3qfq0");
+        prechodovaDKA.pridajRiadok("q1q2q0","1","q1q2qfq0");
+        prechodovaDKA.pridajRiadok("q2qfq0","0","q1q2q0");
+        prechodovaDKA.pridajRiadok("q2qfq0","1","q2qfq0");
+        prechodovaDKA.pridajRiadok("q1q2q3qfq0","0","q1q2q3qfq0");
+        prechodovaDKA.pridajRiadok("q1q2q3qfq0","1","q1q2qfq0");
+        prechodovaDKA.pridajRiadok("q1q2qfq0","0","q1q2q3qfq0");
+        prechodovaDKA.pridajRiadok("q1q2qfq0","1","q1q2qfq0");
 
     }
     @Test

@@ -17,7 +17,8 @@ public class NedeterministickyKonecnyAutomatTest {
     private static NedeterministickyKonecnyAutomat nka;
 
     @BeforeAll
-    static void naplnenieParametrovNKA() throws Exception{
+    static void naplnenieParametrovNKA(){
+
         stavyNKA=new HashSet<String>(Arrays.asList("q0","q1","q2","q3","qf"));
         symbolyNKA=new HashSet<String>(Arrays.asList("0","1"));
         akceptujuciStavNKA=new HashSet<String>(Arrays.asList("qf"));
@@ -32,14 +33,16 @@ public class NedeterministickyKonecnyAutomatTest {
         prechodovaNKA.pridajRiadok("q3","0","q3");
         prechodovaNKA.pridajRiadok("q3","epsilon","qf");
 
+
+
     }
     @Test
     public void overenieNKA(){
-        try{
-            nka = new NedeterministickyKonecnyAutomat(stavyNKA,symbolyNKA,zaciatocnyStavNKA,akceptujuciStavNKA,prechodovaNKA);
-        }
-        catch (Exception e){
-            fail(e.getMessage());
-        }
+       try{
+           nka = new NedeterministickyKonecnyAutomat(stavyNKA,symbolyNKA,zaciatocnyStavNKA,akceptujuciStavNKA,prechodovaNKA);
+       }
+       catch (Exception e){
+           fail(e.getMessage());
+       }
     }
 }
