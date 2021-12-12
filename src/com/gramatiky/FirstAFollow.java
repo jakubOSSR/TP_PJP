@@ -226,8 +226,13 @@ public class FirstAFollow {
                                         break; //ked sa na pozicii n nachadza terminal, tak sa ukonci prehladavanie pravej strany
                                     }
                                     if (vysledokfirst.get(o.getPravaStrana().get(n)).contains("epsilon")) {   // ak First(prvku(n)) obsahuje epsilon
-                                        if (!vysledokfollow.get(o.getPravaStrana().get(n-1)).contains("epsilon")) {
-                                            vysledokfollow.get(o.getPravaStrana().get(n-1)).add("epsilon"); //tak aj do follow(prvku(n-1)) pridame epsilon
+                                        if (g.getNeterminaly().contains(o.getPravaStrana().get(n - 1))){
+                                            if (!vysledokfollow.get(o.getPravaStrana().get(n - 1)).contains("epsilon")) {
+                                                vysledokfollow.get(o.getPravaStrana().get(n - 1)).add("epsilon"); //tak aj do follow(prvku(n-1)) pridame epsilon
+                                            }
+                                        }
+                                        else{
+                                            break;
                                         }
                                     }
                                     else {
