@@ -21,7 +21,9 @@ public class FirstAFollow {
         //Riesenie pravidiel tvaru A->aα, kedy "a" patri do First(A)
         for (Pravidlo p : g.getPravidla()) {                    //Prehladavanie pravidiel
             if (g.getTerminaly().contains(p.getPravaStrana().get(0))) {     //Ak je prvy retazec na pravej strane terminal,
-                vysledokfirst.get(p.getLavaStrana().get(0)).add(p.getPravaStrana().get(0)); //prida sa do First neterminalu na lavej strane
+                if (!vysledokfirst.get(p.getLavaStrana().get(0)).contains(p.getPravaStrana().get(0))) {
+                    vysledokfirst.get(p.getLavaStrana().get(0)).add(p.getPravaStrana().get(0)); //prida sa do First neterminalu na lavej strane
+                }
             }
         }
         //Riesenie pravidiel tvaru A->epsilon, kedy "epsilon" patri do First(A)
@@ -211,25 +213,31 @@ public class FirstAFollow {
             if (p.getLavaStrana().get(0).equals(lavaStrana)) {
                 for (int m = (p.getPravaStrana().size()) - 1; m >= 0; m--) {   //prehladavame odkonca pravu stranu pravidla s prislusnou lavou stranou
                     if (g.getNeterminaly().contains(p.getPravaStrana().get(m))) { //ked to je neterminal
-                        if (vysledokfirst.get(p.getPravaStrana().get(m)).contains("epsilon")) {
-                            lavaStrana = p.getPravaStrana().get(m);    //tak budeme hladat pravidla kde na lavej strane je tento neterminal
-                            for (Pravidlo o : g.getPravidla()) {       //opat prehladavame pravidla
-                                if (o.getLavaStrana().get(0).equals(lavaStrana)) {
-                                    for (int n = (o.getPravaStrana().size()) - 1; n >= 0; n--) { //opat prehladame od konca pravu stranu najdeneho pravidla
-                                        if (g.getNeterminaly().contains(o.getPravaStrana().get(n))) { //ked je to neterminal
-                                            if (!vysledokfollow.get(o.getPravaStrana().get(n)).contains("epsilon")) {
-                                                vysledokfollow.get(o.getPravaStrana().get(n)).add("epsilon"); //tak do jeho follow mnoziny pridame epsilon
-                                                lavaStrana = o.getPravaStrana().get(n); //tento neterminal sa opat stane hladanou lavou stranou
-                                            }
-                                        } else {
-                                            break; //ked sa na pozicii n nachadza terminal, tak sa ukonci prehladavanie pravej strany
+                        lavaStrana = p.getPravaStrana().get(m);    //tak budeme hladat pravidla kde na lavej strane je tento neterminal
+                        for (Pravidlo o : g.getPravidla()) {       //opat prehladavame pravidla
+                            if (o.getLavaStrana().get(0).equals(lavaStrana)) {
+                                for (int n = (o.getPravaStrana().size()) - 1; n >= 0; n--) { //opat prehladame od konca pravu stranu najdeneho pravidla
+                                    if (g.getNeterminaly().contains(o.getPravaStrana().get(n))) { //ked je to neterminal
+                                        if (!vysledokfollow.get(o.getPravaStrana().get(n)).contains("epsilon")) {
+                                            vysledokfollow.get(o.getPravaStrana().get(n)).add("epsilon"); //tak do jeho follow mnoziny pridame epsilon
+                                            lavaStrana = o.getPravaStrana().get(n); //tento neterminal sa opat stane hladanou lavou stranou
                                         }
+                                    } else {
+                                        break; //ked sa na pozicii n nachadza terminal, tak sa ukonci prehladavanie pravej strany
+                                    }
+                                    if (vysledokfirst.get(o.getPravaStrana().get(n)).contains("epsilon")) {   // ak First(prvku(n)) obsahuje epsilon
+                                        if (!vysledokfollow.get(o.getPravaStrana().get(n-1)).contains("epsilon")) {
+                                            vysledokfollow.get(o.getPravaStrana().get(n-1)).add("epsilon"); //tak aj do follow(prvku(n-1)) pridame epsilon
+                                        }
+                                    }
+                                    else {
+                                        break; //ak first(prvku(n)) neobsahuje epsilon, prehladavanie pravej strany sa skonci
                                     }
                                 }
                             }
                         }
-                        else {
-                            break; //ked mnozina first neobsahuje epsilon prehladavanie pravej strany sa skonci
+                        if (!vysledokfirst.get(p.getPravaStrana().get(m)).contains("epsilon")) {
+                            break;
                         }
                     }
                     else {
