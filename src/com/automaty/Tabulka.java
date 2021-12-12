@@ -43,7 +43,8 @@ public class Tabulka {
         }
     }
     public void pridajRiadokPreZS(String aktStav, HashMap<String,HashSet<String>> mnozina){//metoda na pridanie záznamu do mapy - oproti vyššie uvedenej sa líši v počte a type prijímaných parametrov
-        prechodovaTabulka.put(aktStav,mnozina);
+            prechodovaTabulka.put(aktStav,mnozina);
+
     }
 
     public String[] overStavyVtabulke(){ //metóda, ktorá vráti množinu stavov, ktoré sa nachádzajú v tabuľke

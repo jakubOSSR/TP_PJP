@@ -20,12 +20,13 @@ public class EkvivalentnyDKATest {
 
     @BeforeAll
     static void naplnenieParametrovDKAaNKA() throws Exception {
-        stavyNKA = new HashSet<String>(Arrays.asList("q0","q1","q2","q3","qf"));
-        symbolyNKA = new HashSet<String>(Arrays.asList("0","1"));
-        akceptujuciStavNKA = new HashSet<String>(Arrays.asList("qf"));
+        stavyNKA = new HashSet<String>(Arrays.asList("q0","q1","q2","q3","qf","q4"));
+        symbolyNKA = new HashSet<String>(Arrays.asList("0","1","2"));
+        akceptujuciStavNKA = new HashSet<String>(Arrays.asList("q2"));
         zaciatocnyStavNKA = new HashSet<String>(Arrays.asList("q0"));
 
         prechodovaNKA = new Tabulka();
+
         prechodovaNKA.pridajRiadok("q0","0","q0","q1");
         prechodovaNKA.pridajRiadok("q0","1","q0","q2");
         prechodovaNKA.pridajRiadok("q1","0","q1","q3");
@@ -34,6 +35,25 @@ public class EkvivalentnyDKATest {
         prechodovaNKA.pridajRiadok("q2","1","q2","qf");
         prechodovaNKA.pridajRiadok("q3","0","q3");
         prechodovaNKA.pridajRiadok("q3","epsilon","qf");
+
+
+
+        /*
+        prechodovaNKA.pridajRiadok("q0","0","q0");
+        prechodovaNKA.pridajRiadok("q0","epsilon","q1");
+        prechodovaNKA.pridajRiadok("q1","epsilon","q2");
+        prechodovaNKA.pridajRiadok("q1","1","q1");
+        prechodovaNKA.pridajRiadok("q2","2","q2");
+
+         */
+        /*
+        prechodovaNKA.pridajRiadok("q0","epsilon","q1","q2");
+        prechodovaNKA.pridajRiadok("q1","0","q3");
+        prechodovaNKA.pridajRiadok("q2","1","q3");
+        prechodovaNKA.pridajRiadok("q3","1","q4");
+        */
+
+
         nka = new NedeterministickyKonecnyAutomat(stavyNKA,symbolyNKA,zaciatocnyStavNKA,akceptujuciStavNKA,prechodovaNKA);
 
         stavyDKA = new HashSet<String>(Arrays.asList("q0","q1q0","q2q0","q1q3qfq0","q1q2q0","q2qfq0","q1q2q3qfq0","q1q2qfq0"));
