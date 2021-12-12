@@ -18,28 +18,20 @@ public class DeterministickyKonecnyAutomatTest {
 
     @BeforeAll
     static void naplnenieParametrovDKA(){
-        stavyDKA = new HashSet<String>(Arrays.asList("q0","q1q0","q2q0","q1q3qfq0","q1q2q0","q2qfq0","q1q2q3qfq0","q1q2qfq0"));
+        stavyDKA = new HashSet<String>(Arrays.asList("q0","q1","q2","q3"));
         symbolyDKA = new HashSet<String>(Arrays.asList("0","1"));
-        akceptujuciStavDKA = new HashSet<String>(Arrays.asList("q1q3qfq0","q2qfq0","q1q2q3qfq0","q1q2qfq0"));
+        akceptujuciStavDKA = new HashSet<String>(Arrays.asList("q0"));
         zaciatocnyStavDKA = new HashSet<String>(Arrays.asList("q0"));
 
         prechodovaDKA = new Tabulka();
-        prechodovaDKA.pridajRiadok("q0","0","q1q0");
-        prechodovaDKA.pridajRiadok("q0","1","q2q0");
-        prechodovaDKA.pridajRiadok("q1q0","0","q1q3qfq0");
-        prechodovaDKA.pridajRiadok("q1q0","1","q1q2q0");
-        prechodovaDKA.pridajRiadok("q2q0","0","q1q2q0");
-        prechodovaDKA.pridajRiadok("q2q0","1","q2qfq0");
-        prechodovaDKA.pridajRiadok("q1q3qfq0","0","q1q3qfq0");
-        prechodovaDKA.pridajRiadok("q1q3qfq0","1","q1q2q0");
-        prechodovaDKA.pridajRiadok("q1q2q0","0","q1q2q3qfq0");
-        prechodovaDKA.pridajRiadok("q1q2q0","1","q1q2qfq0");
-        prechodovaDKA.pridajRiadok("q2qfq0","0","q1q2q0");
-        prechodovaDKA.pridajRiadok("q2qfq0","1","q2qfq0");
-        prechodovaDKA.pridajRiadok("q1q2q3qfq0","0","q1q2q3qfq0");
-        prechodovaDKA.pridajRiadok("q1q2q3qfq0","1","q1q2qfq0");
-        prechodovaDKA.pridajRiadok("q1q2qfq0","0","q1q2q3qfq0");
-        prechodovaDKA.pridajRiadok("q1q2qfq0","1","q1q2qfq0");
+        prechodovaDKA.pridajRiadok("q0","0","q2");
+        prechodovaDKA.pridajRiadok("q0","1","q1");
+        prechodovaDKA.pridajRiadok("q1","0","q0");
+        prechodovaDKA.pridajRiadok("q1","1","q3");
+        prechodovaDKA.pridajRiadok("q2","0","q3");
+        prechodovaDKA.pridajRiadok("q2","1","q0");
+        prechodovaDKA.pridajRiadok("q3","0","q1");
+        prechodovaDKA.pridajRiadok("q3","1","q2");
 
     }
     @Test

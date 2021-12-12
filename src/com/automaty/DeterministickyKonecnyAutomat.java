@@ -103,6 +103,10 @@ public class DeterministickyKonecnyAutomat {
         //výpis prechodovej tabulky DKA
         System.out.print("________________Prechodova tabulka DKA_________________\n");
         prechodovaTabulkaDKA.vypisTabulku();
+        System.out.println("Stavy DKA: "+stavyDKA);
+        System.out.println("Symboly: "+symboly);
+        System.out.println("Akceptujuce stavy: "+akceptujuciStavDKA);
+        System.out.println("Zaciatocny stav: "+zaciatocnyStavDKA);
         System.out.print("_______________________________________________________\n");
 
     }
