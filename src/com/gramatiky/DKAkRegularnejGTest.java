@@ -3,7 +3,7 @@ package com.gramatiky;
 import com.automaty.Tabulka;
 import com.sun.jdi.event.ExceptionEvent;
 import junit.framework.JUnit4TestAdapter;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
