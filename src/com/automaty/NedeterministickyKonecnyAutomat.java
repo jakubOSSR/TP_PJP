@@ -93,6 +93,10 @@ public class NedeterministickyKonecnyAutomat {
         //vypis prechodovej tabulky NKA
         System.out.print("_______________Prechodova tabulka NKA__________________\n");
         prechodovaTabulkaNKA.vypisTabulku();
+        System.out.println("Stavy NKA: "+stavyNKA);
+        System.out.println("Symboly: "+symboly);
+        System.out.println("Akceptujuce stavy NKA: "+akceptujuciStavNKA);
+        System.out.println("Zaciatocny stav NKA: "+zaciatocnyStavNKA);
         System.out.print("_______________________________________________________\n");
 
     }
