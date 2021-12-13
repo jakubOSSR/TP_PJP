@@ -41,7 +41,7 @@ public class EkvivalentnyDKA {
                 if (m1.getKey().equals(eZaciatocnyStav.toString().replace("[", "")
                         .replace("]", ""))) {
                     for (Map.Entry<String, HashSet<String>> m2 : m1.getValue().entrySet()) {
-                        if(!m2.getKey().equals("epsilon")) {
+                        if(!m2.getKey().equals("epsilon")) { //vynechá prechod na epsilon
                              naslStavy = new HashSet<String>();
                              naslStavy.addAll(m2.getValue());
                              for(Map.Entry<String,HashSet<String>> uzaver : uzaverStavy.entrySet()){ // cyklus, ktorý zabezpečí prehľadanie uzaverovej mnoziny, kt. bola vytvorená metodou uzaverEps
@@ -49,30 +49,30 @@ public class EkvivalentnyDKA {
                                        naslStavy.addAll(uzaverStavy.get(uzaver.getKey())); //ak nasl. stavy obsahujú stav, pri ktorom sa robil uzáver pridáme jeho hodnotu -> uzaverStavy je typu MAP<K,V>, kde k je stav a V je stav, resp. množina stavov pri prechode na eps
                                   }
                              }
-                             pravidlo.put(m2.getKey(),naslStavy);
+                             pravidlo.put(m2.getKey(),naslStavy); //do pravidla pridíme k danému klúču - symbolu všetky nasledujuce stavy
                         }
                     }
                 }
         }
-        prvyRiadok.pridajRiadokPreZS(eZaciatocnyStav.toString().replace("[","").replace("]",""),pravidlo);
-        prvyRiadokMapa=prvyRiadok.vratPrechodovuTabulku();
-        for(Map.Entry<String,HashSet<String>> mm : uzaverStavy.entrySet()){
-            if(prvyRiadokMapa.containsKey(mm.getKey())){
-                novyZacStav = mm.getValue().toString();
+        prvyRiadok.pridajRiadokPreZS(eZaciatocnyStav.toString().replace("[","").replace("]",""),pravidlo); //vytvoríme prvý riadok,
+        prvyRiadokMapa=prvyRiadok.vratPrechodovuTabulku(); // pretransformujeme prvy riadok z typu Tabulka na typ Mapa
+        for(Map.Entry<String,HashSet<String>> mm : uzaverStavy.entrySet()){ // cyklus, ktorý opäť prehľadá mapu uzaverStavy
+            if(prvyRiadokMapa.containsKey(mm.getKey())){ // ak kľúč v prvom riadku vystupuje aj v mape uzaverStavy ako kľuč
+                novyZacStav = mm.getValue().toString(); //vytvoríme nový začiatočný stav
                 novyStav = new HashSet<String>();
-                novyStav.addAll(mm.getValue());
-                eZaciatocnyStav.clear();
-                eZaciatocnyStav.add(novyZacStav.replace("[","").replace("]","").replace(", ",""));
+                novyStav.addAll(mm.getValue()); //pridame nový stav
+                eZaciatocnyStav.clear(); //vymažeme predchadzajúci začiatočný stav
+                eZaciatocnyStav.add(novyZacStav.replace("[","").replace("]","").replace(", ","")); //pridáme nový začiatočný stav
             }
         }
-        if(novyZacStav.equals("-")){
+        if(novyZacStav.equals("-")){ //ak nový začiatočný stav sa rovna "-", čo je hodnota zadaná pri deklarácií premennej
             ePrechodovaDKA=prvyRiadok;
         }
-        else{
-            if(pravidlo.isEmpty()){
+        else{ //ak nie
+            if(pravidlo.isEmpty()){ //ak pravidlo je prázdne (tzn. riadok, kde začíname zač. stav. má definované lem prechody na eps
                 epseps = true;
             }
-            ePrechodovaDKA.pridajRiadokPreZS(novyZacStav,pravidlo);
+            ePrechodovaDKA.pridajRiadokPreZS(novyZacStav,pravidlo); //do ePrechodovej tabulky pridáme nový riadok
         }
         this.eStavy.add(eZaciatocnyStav.toString()); //pridanie začiatočného stavu do množiny stavov eDKA
         ePomocnaPrechodova = ePrechodovaDKA.vratPrechodovuTabulku(); //vrátenie tabulky vo formáte MAP -> vráti tu tabulku, ktorú sme vyššie vytvárali v cykle
@@ -101,7 +101,7 @@ public class EkvivalentnyDKA {
         }
     }
     public void najdiNovyStav(HashMap<String, HashMap<String, HashSet<String>>> tabulka) { //rekurzívna funkcia (konkrétne direktívna rekurzia), ktorá volá samú seba v prípade nesplenia podmienky, tzn. ak je podmienka false, ak je true -> metoda prejde na svoj koniec a automaticky sa preruší jej vykonávanie
-        if(epseps == false) {
+        if(epseps == false) { //ak epseps je false
             novyStav = new HashSet<String>();
               for (Map.Entry<String, HashMap<String, HashSet<String>>> m1 : tabulka.entrySet()) { // cyklus ktorý nájde nov= stavy
                   for (Map.Entry<String, HashSet<String>> m2 : m1.getValue().entrySet()) {
@@ -112,7 +112,7 @@ public class EkvivalentnyDKA {
                   }
               }
           }
-          else{
+          else{ //ak epseps je true
               epseps = false;
           }
         if (!novyStav.isEmpty()) { //dôležitá podmienka, ktorá v prípade, že sa našli nové stavy vykoná telo IF, v ktorom zavolá znova funkciu najdiNovyStav, ak je množina noveStavy prázdna, preskočí sa telo IF a funkcia skončí
@@ -182,10 +182,10 @@ public class EkvivalentnyDKA {
     public void uzaverEps() {
         for (Map.Entry<String, HashMap<String, HashSet<String>>> m1 : tabulkaNKA.entrySet()) { //cyklus v cykle, ktorý zabezpečuje prehľadanie NKA tabulky z dôvodu hľadanie uzaveru
             for (Map.Entry<String, HashSet<String>> m2 : m1.getValue().entrySet()) {
-                if (m2.getKey().equals("epsilon")) {
+                if (m2.getKey().equals("epsilon")) { //ak sa symbol rovná epsilon
                     uzaverMnozina = new HashSet<String>();
-                    uzaverMnozina.addAll(m2.getValue());
-                    for (Map.Entry<String, HashMap<String, HashSet<String>>> p1 : tabulkaNKA.entrySet()) {
+                    uzaverMnozina.addAll(m2.getValue()); //do uzaverMnozina pridáme naslStav pri prechode na epsilom
+                    for (Map.Entry<String, HashMap<String, HashSet<String>>> p1 : tabulkaNKA.entrySet()) { //cyklus, ktorý overí či aj naslStav nemá prechod na epsilon
                         if (uzaverMnozina.contains(p1.getKey())) {
                             for (Map.Entry<String, HashSet<String>> p2 : p1.getValue().entrySet()) {
                                 if(p2.getKey().equals("epsilon")){
@@ -204,41 +204,3 @@ public class EkvivalentnyDKA {
 }
 
 
-
-/*
-public void uzaverEps(){
-        for (Map.Entry<String, HashMap<String, HashSet<String>>> m1 : tabulkaNKA.entrySet()) { //cyklus v cykle, ktorý zabezpečuje prehľadanie NKA tabulky z dôvodu hľadanie uzaveru
-            for (Map.Entry<String, HashSet<String>> m2 : m1.getValue().entrySet()) {
-                if(m2.getKey().equals("epsilon")) { //v pripade že nájde prechod na epsilon
-                    uzaverMnozina = new HashSet<String>();
-                    uzaverMnozina.addAll(m2.getValue()); //uloží nasledujuce stavy, do ktorých sa dostaneme na epsilon, do množiny uzaverMnožina
-                    uzaverMnozina.add(m1.getKey());
-                    uzaverStavy.put(m1.getKey(),uzaverMnozina);
-                }
-            }
-        }
-
-    }
- */
-
-/*
- for (Map.Entry<String, HashMap<String, HashSet<String>>> m1 : tabulkaNKA.entrySet()) {  //cyklus ktorý vloži do tabulky eDKA prvý riadok -> riadok kde sa na ľavej strane nachádza zač. stav
-            for (Map.Entry<String, HashSet<String>> m2 : m1.getValue().entrySet()) {
-                if (m1.getKey().equals(eZaciatocnyStav.toString().replace("[", "")
-                        .replace("]", ""))) {
-                    if(!m2.getKey().equals("epsilon")) {
-                       naslStavy = new HashSet<String>();
-                       naslStavy.addAll(m2.getValue());
-                        for(Map.Entry<String,HashSet<String>> uzaver : uzaverStavy.entrySet()){ // cyklus, ktorý zabezpečí prehľadanie uzaverovej mnoziny, kt. bola vytvorená metodou uzaverEps
-                            if(naslStavy.contains(uzaver.getKey())){
-                                naslStavy.addAll(uzaverStavy.get(uzaver.getKey())); //ak nasl. stavy obsahujú stav, pri ktorom sa robil uzáver pridáme jeho hodnotu -> uzaverStavy je typu MAP<K,V>, kde k je stav a V je stav, resp. množina stavov pri prechode na eps
-                            }
-                        }
-                        pravidlo = new HashMap<String,HashSet<String>>();
-                        pravidlo.put(m2.getKey(),naslStavy);
-                        ePrechodovaDKA.pridajRiadokPreZS(m1.getKey(),pravidlo);
-                    }
-                }
-            }
-        }
- */
