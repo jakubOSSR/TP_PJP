@@ -36,8 +36,6 @@ public class EkvivalentnyDKATest {
         prechodovaNKA.pridajRiadok("q3","0","q3");
         prechodovaNKA.pridajRiadok("q3","epsilon","qf");
 
-
-
         /*
         prechodovaNKA.pridajRiadok("q0","0","q0");
         prechodovaNKA.pridajRiadok("q0","epsilon","q1");
@@ -46,12 +44,13 @@ public class EkvivalentnyDKATest {
         prechodovaNKA.pridajRiadok("q2","2","q2");
 
          */
-        /*
+
+    /*
         prechodovaNKA.pridajRiadok("q0","epsilon","q1","q2");
         prechodovaNKA.pridajRiadok("q1","0","q3");
         prechodovaNKA.pridajRiadok("q2","1","q3");
         prechodovaNKA.pridajRiadok("q3","1","q4");
-        */
+*/
 
 
         nka = new NedeterministickyKonecnyAutomat(stavyNKA,symbolyNKA,zaciatocnyStavNKA,akceptujuciStavNKA,prechodovaNKA);

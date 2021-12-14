@@ -67,6 +67,7 @@ public class EkvivalentnyDKA {
         }
         if(novyZacStav.equals("-")){ //ak nový začiatočný stav sa rovna "-", čo je hodnota zadaná pri deklarácií premennej
             ePrechodovaDKA=prvyRiadok;
+            this.eStavy.add(eZaciatocnyStav.toString()); //pridanie začiatočného stavu do množiny stavov eDKA
         }
         else{ //ak nie
             if(pravidlo.isEmpty()){ //ak pravidlo je prázdne (tzn. riadok, kde začíname zač. stav. má definované lem prechody na eps
@@ -74,7 +75,7 @@ public class EkvivalentnyDKA {
             }
             ePrechodovaDKA.pridajRiadokPreZS(novyZacStav,pravidlo); //do ePrechodovej tabulky pridáme nový riadok
         }
-        this.eStavy.add(eZaciatocnyStav.toString()); //pridanie začiatočného stavu do množiny stavov eDKA
+
         ePomocnaPrechodova = ePrechodovaDKA.vratPrechodovuTabulku(); //vrátenie tabulky vo formáte MAP -> vráti tu tabulku, ktorú sme vyššie vytvárali v cykle
         vyslednaTab.putAll(ePomocnaPrechodova); //do vyslednej tabulky typu MAP uloží všetko z novej tabulky eDKA -> riadky, kde zač. stav je na ľavej stra e
         najdiNovyStav(ePomocnaPrechodova);  // volanie metody, ktorá pridá nový stav ( ako parateter berie novú tabulku eDKA)
@@ -83,7 +84,7 @@ public class EkvivalentnyDKA {
         //výpis tabulky, stavov...
         ePrechodovaDKAFinal.vypisTabulku();
         System.out.println("\n");
-        System.out.println("STAVY SU:" + eStavy.toString().replace(", q","q"));
+        System.out.println("STAVY eDKA "+eStavy);
         System.out.println("Zaciatocny STAV: "+eZaciatocnyStav);
         pomocna.addAll(nedeterministickyKA.vratAkcStavNKA());
         najdiAkcStavy(eStavy,pomocna); //volanie metody, kt. zabezpečí najdenie všetkych akceptujúcich stavov
