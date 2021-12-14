@@ -39,9 +39,11 @@ public class DKAkRegularnejG {
 
                         }
                     }
+                    neterminaly.add("qf"+ i);
                     i++;
                 }
             }
+
             //Prípad keď má pravá strana terminál a neterminál
             if (p.getPravaStrana().size() == 2) {
                 if (terminaly.contains(p.getPravaStrana().get(0)) & neterminaly.contains(p.getPravaStrana().get(1))) {
@@ -51,6 +53,7 @@ public class DKAkRegularnejG {
                 }
             }
        }
+
         this.akceptujuciStavDKAkRG=akceptujuciStav;
         this.zaciatocnyStavDKAkRG = zaciatocnySymbol;
         this.tabulkaDKAkRG=tabulka;
@@ -62,7 +65,7 @@ public class DKAkRegularnejG {
     public HashSet<String> vratAkceptujuceStavyDKAkRG(){return akceptujuciStavDKAkRG;}
     public HashSet<String> vratStavyDKAkRG(){return stavyDKAkRG;}
     public HashSet<String> vratSymbolyDKAkRG(){return symbolyDKAkRG;}
-    public String vratZaciatocnySymbolDKAkRG(){return zaciatocnyStavDKAkRG;}
+    public String vratZaciatocnyStavDKAkRG(){return zaciatocnyStavDKAkRG;}
     public Tabulka tabulkaDKAkRG(){return tabulkaDKAkRG;}
 
 }

@@ -1,5 +1,6 @@
 package com.gramatiky;
 
+import com.automaty.DeterministickyKonecnyAutomat;
 import com.automaty.Tabulka;
 import com.sun.jdi.event.ExceptionEvent;
 import junit.framework.JUnit4TestAdapter;
@@ -42,6 +43,8 @@ class DKAkRegularnejGTest {
             stavyT.add("B");
             stavyT.add("C");
             stavyT.add("D");
+            stavyT.add("qf1");
+            stavyT.add("qf2");
             symbolyT.add("e");
             symbolyT.add("l");
             symbolyT.add("s");
@@ -51,19 +54,38 @@ class DKAkRegularnejGTest {
             zaciatocnyStavT = "S";
             akceptujuceStavyT.add("qf1");
             akceptujuceStavyT.add("qf2");
-            tabulkaT.pridajRiadok("S","e","A");
+
             tabulkaT.pridajRiadok("A","l","B");
             tabulkaT.pridajRiadok("A","n","C");
             tabulkaT.pridajRiadok("B","s","D");
+            tabulkaT.pridajRiadok("S","e","A");
             tabulkaT.pridajRiadok("C","d","qf1");
             tabulkaT.pridajRiadok("D","e","gf2");
             assertEquals(stavyT, pom.vratStavyDKAkRG());
             assertEquals(symbolyT, pom.vratSymbolyDKAkRG());
-            assertEquals(zaciatocnyStavT, pom.vratZaciatocnySymbolDKAkRG());
+            assertEquals(zaciatocnyStavT, pom.vratZaciatocnyStavDKAkRG());
             assertEquals(akceptujuceStavyT, pom.vratAkceptujuceStavyDKAkRG());
-            assertEquals(tabulkaT, pom.tabulkaDKAkRG());
+            System.out.println("Očakávaná tabuľka:");
+            pom.tabulkaDKAkRG().vypisTabulku();
+            System.out.println("Stavy DKAkRG: " + pom.vratStavyDKAkRG());
+            System.out.println("Symboly DKAkRG: " + pom.vratSymbolyDKAkRG());
+            System.out.println("Zaciatocny stav DKAkRG: " + pom.vratZaciatocnyStavDKAkRG());
+            System.out.println("Akcpetujúce stavy DKAkRG: " + pom.vratAkceptujuceStavyDKAkRG());
         }
         catch (Exception e){
+            fail(e.getMessage());
             }
+    }
+    @Test
+    void AutomatTest(){
+        try {
+            DKAkRegularnejG ten = new DKAkRegularnejG(terminaly,neterminaly,zaciatocnySymbol,pravidla);
+            HashSet <String> zacstavy = new HashSet<String>();
+            zacstavy.add(zaciatocnySymbol);
+            DeterministickyKonecnyAutomat dka = new DeterministickyKonecnyAutomat(ten.stavyDKAkRG,ten.symbolyDKAkRG,zacstavy,ten.akceptujuciStavDKAkRG, ten.tabulkaDKAkRG);
+        }
+        catch(Exception e){
+            fail(e.getMessage());
+        }
     }
 }
